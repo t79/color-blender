@@ -1,0 +1,75 @@
+html {
+    padding: 0;
+	margin: 0;
+}
+
+@media only screen and (max-width: 450px) { html { font-size: 14px; } }
+@media only screen and (min-width: 450px) { html { font-size: 14.3px; } }
+@media only screen and (min-width: 520px) { html { font-size: 14.6px; } }
+@media only screen and (min-width: 590px) { html { font-size: 15px; } }
+@media only screen and (min-width: 620px) { html { font-size: 15px; } }
+@media only screen and (min-width: 710px) { html { font-size: 15.7px; } }
+@media only screen and (min-width: 760px) { html { font-size: 16px; } }
+@media only screen and (min-width: 950px) { html { font-size: 16px; } }
+@media only screen and (min-width: 1000px) { html { font-size: 16.2px; } }
+@media only screen and (min-width: 1250px) { html { font-size: 16.5px; } }
+@media only screen and (min-width: 1430px) { html { font-size: 16.75px; } }
+@media only screen and (min-width: 1650px) { html { font-size: 17px; } }
+
+body {
+    position: relative;
+	background-color: #081d58;
+	padding: 1em 0.6em 1em 0.35em;
+	margin: 0;
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: flex-start;
+	row-gap: calc(0.6em + 1.5vw);
+	width: 100vw;
+    font-family: Arial, sans-serif;
+	font-size: 1em;
+	font-weight: 500;
+}
+
+main {
+    width: 100%;
+    display: flex;
+	flex-flow: column nowrap;
+	align-items: flex-start;
+	row-gap: calc(0.6em + 1.5vw);
+}
+
+.content-block-container {
+    width: 100%;
+    display: flex;
+ 	justify-content: center;
+    align-items: flex-start;
+}
+
+.content-block {
+    position: relative;
+    width: min(calc(40em + 20vw), 90vw);
+    border-radius: 0.3em;
+    background-color: #D2D6E1;
+    color: black;
+}
+
+
+h1, h2 {
+    font-size: 2.5em;
+	font-weight: 900;
+	letter-spacing: 0.05em;
+	padding: 0;
+	margin: 0.3em 1em 0.3em 1em;
+	color: #081d58
+}
+
+
+
+
+
+
+
+
+
+
