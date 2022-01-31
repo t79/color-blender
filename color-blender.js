@@ -35,16 +35,21 @@ function setColor(e) {
 }
 
 function checkThatValueIsAColor(value) {
-    if (/^(#{1})([0-9A-F]{6})$/i.test(value)) {
+    if (/^(#{1})([0-9A-F]{6})$/i.test(value)) { // #081d58
         return value;
     }
-    if (/^(#{1})([0-9A-F]{3})$/i.test(value)) {
+    if (/^(#{1})([0-9A-F]{3})$/i.test(value)) { // #126
         v = value.split('');
         return '' + v[0] + v[1] + v[1] + v[2] + v[2] + v[3] + v[3];
     }
 }
 
+function setNumberOfShades(e) {
+    
+}
+
 function setEventListener() {
+    t79CB.inputNumberOfShadesSlider.addEventListener('input', setNumberOfShades);
     t79CB.inputColorText1.addEventListener('input', setColor);
     t79CB.inputColorPicker1.addEventListener('input', setColor);
     t79CB.inputColorText2.addEventListener('input', setColor);
