@@ -94,7 +94,13 @@ main {
 }
 
 .color-container {
+    width: 100%;
     margin-top : 0.2em;
+    display: flex;
+	justify-content: flex-start;
+	flex-flow: row wrap;
+    gap: 0.5em;
+	align-content: flex-start;
 }
 
 
@@ -114,4 +120,41 @@ h1 {
 h2 {
     font-size: 1.5em;
     color: black;
+}
+
+input[type=color] {
+
+    height: 5em;
+    width: 5em;
+    padding: 5px;
+
+}
+
+input[type=text] {
+    height: 3em;
+    width: 7em;
+    padding: 0;
+    font-size: 1em;
+    font-family: "Helvetica", Helvetica, Arial, sans-serif;
+}
+
+#slider-container {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 15em;
+    padding-left: 20px;
+    margin-left: 2em;
+    background-color: none;
+}
+
+#slider-container input[type="range"]{
+    position: absolute;
+    width: 15em;
+    height: 1em;
+    margin: 0;
+    transform-origin: 0px 0px;
+    transform: rotate(90deg);
+    left: 20px;
+    top: 0;
 }
