@@ -4,35 +4,103 @@
 <head>
 
     <meta name="viewport" content="width=device-width,initial-scale=1">
-	
-	<link rel="stylesheet" href="assets/color-tools.css">
-	
-		
-	<title>Color Tools</title>
-	
+
+    <link rel="stylesheet" href="assets/color-tools.css?v=13001">
+    <script src="color-blender.js?v=13001"></script>
+    <script src="assets/w3color.js"></script>
+
+
+    <title>Color Tools</title>
+
 </head>
 
 <body>
-
-<main>
-
-    <div class="content-block-container">
-
-        <div class="content-block">
-
+    <main>
+        <div class="content-block-container">
+            <div id="page-header" class="content-block">
                 <h1>Color Tools</h1>
-
+            </div>
         </div>
 
-    </div>
+        <div id="color-blender" class="content-block-container">
+            <div class="content-block">
 
+                <div id="cb-header">
+                    <h2>Color Blender</h2>
+                </div>
 
+                <div id="input-colors">
 
+                    <div id="color-pickers">
+                        <div id="color-1" class="color-input-gui">
 
+                            <input type="color" id="color-picker-1" value="#e66465">
+                            <input type="text" id="color-text-1">
 
+                        </div>
 
-</main>
+                        <div id="color-2" class="color-input-gui">
 
+                            <input type="color" id="color-picker-2" value="#ffb43f">
+                            <input type="text" id="color-text-2">
+
+                        </div>
+
+                    </div>
+
+                    <div id='slider-container'>
+                        <input id='number-of-shades-slider' type='range' min='3' max='20' value='5' list='steps'>
+                        <datalist id="steps">
+                            <option value="3"></option>
+                            <option value="4"></option>
+                            <option value="5"></option>
+                            <option value="6"></option>
+                            <option value="7"></option>
+                            <option value="8"></option>
+                            <option value="9"></option>
+                            <option value="10"></option>
+                            <option value="11"></option>
+                            <option value="12"></option>
+                            <option value="13"></option>
+                            <option value="14"></option>
+                            <option value="15"></option>
+                            <option value="16"></option>
+                            <option value="17"></option>
+                            <option value="18"></option>
+                            <option value="19"></option>
+                            <option value="20"></option>
+                        </datalist>
+                    </div>
+
+                </div>
+
+                <div id="output-colors">
+                </div>
+
+                <div id="cb-footer">
+
+                    <p>v.0.1 and still under construction. This tool is made based on the colour blender on <a
+                        href="https://meyerweb.com/eric/tools/color-blend/">meyerweb.com</a>.
+                    That one is under a Creative Commons <a
+                        href="https://creativecommons.org/licenses/by-sa/1.0/">Attribution-ShareAlike 1.0</a>.
+                    Then this work will be under <a href="https://creativecommons.org/licenses/by-sa/4.0/">version
+                        4.0</a> of the same license.</p>
+
+                    <p xmlns:cc="http://creativecommons.org/ns#">This work is licensed under <a
+                            href="http://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank"
+                            rel="license noopener noreferrer" style="display:inline-block;">CC BY-SA 4.0<img
+                                style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+                                src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img
+                                style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+                                src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><img
+                                style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+                                src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1"></a></p>
+
+                </div>
+
+            </div>
+        </div>
+    </main>
 
 </body>
 </html>
