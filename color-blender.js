@@ -45,7 +45,64 @@ function checkThatValueIsAColor(value) {
 }
 
 function setNumberOfShades(e) {
-    
+    setupOutputFieldsTable(parseInt(e.target.value))
+}
+
+function setupOutputFieldsTable(numberOfShades) {
+    t79CB.outputColorField.innerHTML = '';
+    t79CB.outputFields = Array(numberOfShades).fill();
+    for (fieldIndex in t79CB.outputFields) {
+        let field = {};
+        
+        const svgContainer = document.createElement('div');
+        svgContainer.classList.add('svg-container-main-view');
+        field['svgContainerMainView'] = svgContainer;
+
+        const textPartContainer = document.createElement('div');
+        textPartContainer.classList.add('text-part-container');
+        const textField = document.createElement('span');
+        textField.classList.add('color-text-field');
+        textPartContainer.appendChild(textField);
+        field['textField'] = textField;
+
+        const fieldContainer = document.createElement('div');
+        fieldContainer.classList.add('color-container');
+        fieldContainer.appendChild(svgContainer);
+        fieldContainer.appendChild(textPartContainer);
+
+        t79CB.outputColorField.appendChild(fieldContainer);
+        t79CB.outputFields[fieldIndex] = field;
+    }
+    constructOutputFields()
+} 
+
+function constructOutputFields() {
+
+    const outputDivWidth = t79CB.outputColorField.clientWidth;
+
+    const standarFieldHeight = 17 * 4;
+    const minStandardFieldHeight = 17 * 1.8;
+
+    const fieldHeight = interpolation(t79CB.outputFields.length, 3, standarFieldHeight, 20, minStandardFieldHeight);
+    const fieldWidth = outputDivWidth - 150;
+
+    for (fieldIndex in t79CB.outputFields) {
+        const colorField = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
+        colorField.setAttribute('width', String(fieldWidth));
+        colorField.setAttribute('height', String(fieldHeight));
+
+        const colorRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        colorRect.classList.add('color-rect');
+        colorRect.setAttributeNS(null, 'width', String(fieldWidth));
+        colorRect.setAttributeNS(null, 'height', String(fieldHeight));
+        colorRect.style.fill = '#ffffff';
+        colorField.appendChild(colorRect);
+
+        t79CB.outputFields[fieldIndex]['svgContainerMainView'].innerHTML = '';
+        t79CB.outputFields[fieldIndex]['svgContainerMainView'].appendChild(colorField);
+        //t79CB.outputFields[fieldIndex]['svgContainer'].setAttribute('width', String(fieldWidth));
+        t79CB.outputFields[fieldIndex]['svgContainerMainView'].style.height = String(fieldHeight) + 'px';
+    }
 }
 
 function setEventListener() {
@@ -63,5 +120,9 @@ function getElements() {
     t79CB.inputColorPicker1 = document.getElementById('color-picker-1');
     t79CB.inputColorText2 = document.getElementById('color-text-2');
     t79CB.inputColorPicker2 = document.getElementById('color-picker-2');
+}
+
+function interpolation(x, x1, y1, x2, y2) {
+    return y1 + ((x - x1)*(y2-y1))/(x2-x1);
 }
 
