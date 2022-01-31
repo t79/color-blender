@@ -74,6 +74,11 @@ main {
     color: #3a4b7a;
 }
 
+.color-terms {
+    margin: 0 0.3em 0 0.3em;
+    font-weight: 700;
+}
+
 
 
 #input-colors {
