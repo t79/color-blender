@@ -15,10 +15,10 @@ var t79CB = {
 
 function initColorBlender() {
     getElements();
-    getCurrentFontSize()
+    getCurrentFontSize();
     setEventListener();
     setNumberOfShades(null);
-    initColorInputTextfield()
+    initColorInputTextfield();
 }
 
 function setColor(e) {
@@ -55,7 +55,7 @@ function setNumberOfShades(e) {
     if (e == null) {
         setupOutputFieldsTable(5);
     } else {
-        setupOutputFieldsTable(parseInt(e.target.value))
+        setupOutputFieldsTable(parseInt(e.target.value));
     }
 }
 
