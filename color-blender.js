@@ -91,8 +91,9 @@ function constructOutputFields() {
 
     const outputDivWidth = t79CB.outputColorField.clientWidth;
 
-    const standarFieldHeight = t79CB.curentFontSize * 4;
-    const minStandardFieldHeight = t79CB.curentFontSize * 1.8;
+    const standarFieldHeight = t79CB.curentFontSize * 6;
+    const minStandardFieldHeight = t79CB.curentFontSize * 3.5;
+    const cutof = t79CB.curentFontSize * 0.5;
 
     const fieldHeight = interpolation(t79CB.outputFields.length, 3, standarFieldHeight, 20, minStandardFieldHeight);
     const fieldWidth = outputDivWidth - 100;
@@ -102,12 +103,19 @@ function constructOutputFields() {
         colorField.setAttribute('width', String(fieldWidth));
         colorField.setAttribute('height', String(fieldHeight));
 
-        const colorRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        colorRect.classList.add('color-rect');
-        colorRect.setAttributeNS(null, 'width', String(fieldWidth));
-        colorRect.setAttributeNS(null, 'height', String(fieldHeight));
-        colorRect.style.fill = '#ffffff';
-        colorField.appendChild(colorRect);
+        const rectPath = 'M0 0 L0 ' + fieldHeight + ' L' + (fieldWidth-cutof) + ' ' + fieldHeight + ' L' + fieldWidth + ' 0 Z';
+        const colorPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        colorPath.classList.add('color-rect');
+        colorPath.setAttributeNS(null, 'd', rectPath);
+        colorPath.style.fill = '#ffffff';
+        colorField.appendChild(colorPath);
+        
+        // const colorRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        // colorRect.classList.add('color-rect');
+        // colorRect.setAttributeNS(null, 'width', String(fieldWidth));
+        // colorRect.setAttributeNS(null, 'height', String(fieldHeight));
+        // colorRect.style.fill = '#ffffff';
+        // colorField.appendChild(colorRect);
 
         t79CB.outputFields[fieldIndex]['svgContainerMainView'].innerHTML = '';
         t79CB.outputFields[fieldIndex]['svgContainerMainView'].appendChild(colorField);

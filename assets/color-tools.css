@@ -100,7 +100,7 @@ main {
 
 .color-container {
     width: 100%;
-    margin-top : 0.2em;
+    margin-top : -10px;
     display: flex;
 	justify-content: flex-start;
 	flex-flow: row wrap;
