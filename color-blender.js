@@ -36,6 +36,8 @@ function setColor(e) {
             t79CB.inputColorPicker2.value = color;
         } else { return; }
     }
+
+    setColorShades();
 }
 
 function checkThatValueIsAColor(value) {
@@ -92,7 +94,7 @@ function constructOutputFields() {
     const minStandardFieldHeight = t79CB.curentFontSize * 1.8;
 
     const fieldHeight = interpolation(t79CB.outputFields.length, 3, standarFieldHeight, 20, minStandardFieldHeight);
-    const fieldWidth = outputDivWidth - 150;
+    const fieldWidth = outputDivWidth - 100;
 
     for (fieldIndex in t79CB.outputFields) {
         const colorField = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
@@ -108,9 +110,54 @@ function constructOutputFields() {
 
         t79CB.outputFields[fieldIndex]['svgContainerMainView'].innerHTML = '';
         t79CB.outputFields[fieldIndex]['svgContainerMainView'].appendChild(colorField);
-        //t79CB.outputFields[fieldIndex]['svgContainer'].setAttribute('width', String(fieldWidth));
+        t79CB.outputFields[fieldIndex]['svgContainerMainView'].setAttribute('width', String(fieldWidth) + 'px');
         t79CB.outputFields[fieldIndex]['svgContainerMainView'].style.height = String(fieldHeight) + 'px';
     }
+
+    setColorShades();
+}
+
+function setColorShades() {
+
+    const value1 = t79CB.inputColorPicker1.value;
+    const rect1 = t79CB.outputFields[0]['svgContainerMainView'].querySelector('.color-rect');
+    const color1 = w3color(value1);
+    const rgbColor1Str = color1.toRgbString();
+    rect1.style.fill = rgbColor1Str;
+
+    const value2 = t79CB.inputColorPicker2.value;
+    const rect2 = t79CB.outputFields[t79CB.outputFields.length - 1]['svgContainerMainView'].querySelector('.color-rect');
+    const color2 = w3color(value2);
+    const rgbColor2Str = color2.toRgbString();
+    rect2.style.fill = rgbColor2Str;
+
+    const rgbColor1 = color1.toRgb();
+    const rgbColor2 = color2.toRgb();
+
+    const stepR = (rgbColor2.r - rgbColor1.r) / (t79CB.outputFields.length - 1);
+    const stepG = (rgbColor2.g - rgbColor1.g) / (t79CB.outputFields.length - 1);
+    const stepB = (rgbColor2.b - rgbColor1.b) / (t79CB.outputFields.length - 1);
+
+    for (colorIndex in t79CB.outputFields) {
+        const rectMain = t79CB.outputFields[colorIndex]['svgContainerMainView'].querySelector('.color-rect');
+        color = {};
+
+        color['r'] = rgbColor1.r + stepR * colorIndex;
+        color['g'] = rgbColor1.g + stepG * colorIndex;
+        color['b'] = rgbColor1.b + stepB * colorIndex;
+
+        const rgbColor = 'rgb(' + color['r'] + ',' + color['g'] + ',' + color['b'] + ')';
+
+        const outputColor = w3color(rgbColor);
+
+        rectMain.style.fill = rgbColor;
+
+        t79CB.outputFields[colorIndex]['textField'].innerHTML = '<span>' + outputColor.toHexString() + '</span>';
+        
+        console.log(t79CB.outputFields[colorIndex]['textField'].clientWidth);
+        
+    }
+
 }
 
 function setEventListener() {
