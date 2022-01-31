@@ -5,7 +5,8 @@ document.addEventListener('readystatechange', function () {
 });
 
 window.addEventListener('resize', function () {
-    getCurrentFontSize()
+    getCurrentFontSize();
+    constructOutputFields();
 });
 
 var t79CB = {
