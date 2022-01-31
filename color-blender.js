@@ -5,6 +5,7 @@ document.addEventListener('readystatechange', function () {
 });
 
 window.addEventListener('resize', function () {
+    getCurrentFontSize()
 });
 
 var t79CB = {
@@ -13,6 +14,7 @@ var t79CB = {
 
 function initColorBlender() {
     getElements();
+    getCurrentFontSize()
     setEventListener();
 }
 
@@ -80,8 +82,8 @@ function constructOutputFields() {
 
     const outputDivWidth = t79CB.outputColorField.clientWidth;
 
-    const standarFieldHeight = 17 * 4;
-    const minStandardFieldHeight = 17 * 1.8;
+    const standarFieldHeight = t79CB.curentFontSize * 4;
+    const minStandardFieldHeight = t79CB.curentFontSize * 1.8;
 
     const fieldHeight = interpolation(t79CB.outputFields.length, 3, standarFieldHeight, 20, minStandardFieldHeight);
     const fieldWidth = outputDivWidth - 150;
@@ -120,9 +122,15 @@ function getElements() {
     t79CB.inputColorPicker1 = document.getElementById('color-picker-1');
     t79CB.inputColorText2 = document.getElementById('color-text-2');
     t79CB.inputColorPicker2 = document.getElementById('color-picker-2');
+    t79CB.htmlElement = document.querySelector('html');
 }
 
 function interpolation(x, x1, y1, x2, y2) {
     return y1 + ((x - x1)*(y2-y1))/(x2-x1);
+}
+
+function getCurrentFontSize() {
+    var fontSizeString = window.getComputedStyle(t79CB.htmlElement, null).getPropertyValue('font-size');
+    t79CB.curentFontSize = parseFloat(fontSizeString);
 }
 
