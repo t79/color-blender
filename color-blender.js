@@ -16,6 +16,7 @@ function initColorBlender() {
     getElements();
     getCurrentFontSize()
     setEventListener();
+    setNumberOfShades(null);
 }
 
 function setColor(e) {
@@ -47,7 +48,11 @@ function checkThatValueIsAColor(value) {
 }
 
 function setNumberOfShades(e) {
-    setupOutputFieldsTable(parseInt(e.target.value))
+    if (e == null) {
+        setupOutputFieldsTable(5);
+    } else {
+        setupOutputFieldsTable(parseInt(e.target.value))
+    }
 }
 
 function setupOutputFieldsTable(numberOfShades) {
