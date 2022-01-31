@@ -45,9 +45,34 @@ function checkThatValueIsAColor(value) {
     if (/^(#{1})([0-9A-F]{6})$/i.test(value)) { // #081d58
         return value;
     }
-    if (/^(#{1})([0-9A-F]{3})$/i.test(value)) { // #126
+    if (/^([0-9A-F]{6})$/i.test(value)) {
+        return '#' + value;
+    }
+    if (/^(#{1})([0-9A-F]{3})$/i.test(value)) {
         v = value.split('');
         return '' + v[0] + v[1] + v[1] + v[2] + v[2] + v[3] + v[3];
+    }
+    if (/^([0-9A-F]{3})$/i.test(value)) {
+        v = value.split('');
+        return '#' + v[0] + v[0] + v[1] + v[1] + v[2] + v[2];
+    }
+    if (/^rgb\((\d{1,3}),(\d{1,3}),(\d{1,3})\)$/i.test(value)) {
+        const color = w3color(value);
+        return color.toHexString();
+    }
+    if (/^(\d{1,3})\s(\d{1,3})\s(\d{1,3})$/i.test(value)) {
+        const d = value.split(' ');
+        const color = w3color('rgb(' + d[0] + ',' + d[1] + ',' + d[2] + ')');
+        return color.toHexString();
+    }
+    if (/^hsl\((\d{1,3}),\s*(\d{1,3})%,\s*(\d{1,3})%\)$/i.test(value)) {
+        const color = w3color(value);
+        return color.toHexString();
+    }
+    if (/^(\d{1,3})\s*(\d{1,3})%\s*(\d{1,3})%$/i.test(value)) {
+        const d = value.split(' ');
+        const color = w3color('hsl(' + d[0] + ',' + d[1] + ',' + d[2] + ')');
+        return color.toHexString();
     }
 }
 
