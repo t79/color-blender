@@ -18,6 +18,7 @@ function initColorBlender() {
     getCurrentFontSize()
     setEventListener();
     setNumberOfShades(null);
+    initColorInputTextfield()
 }
 
 function setColor(e) {
@@ -158,6 +159,11 @@ function setColorShades() {
         
     }
 
+}
+
+function initColorInputTextfield() {
+    t79CB.inputColorText1.value = t79CB.inputColorPicker1.value;
+    t79CB.inputColorText2.value = t79CB.inputColorPicker2.value;
 }
 
 function setEventListener() {
