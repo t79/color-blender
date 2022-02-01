@@ -18,7 +18,6 @@ function initColorBlender() {
     getElements();
     getCurrentFontSize();
     setEventListener();
-    setNumberOfShades(null);
     stepSelector(null);
     initColorInputTextfield();
 }
@@ -92,6 +91,10 @@ function stepSelector(button) {
         }
     }
 
+    if (button == null) {
+        setupOutputFieldsTable(5);
+    }
+
     t79CB.stepStatus.innerHTML = t79CB.outputFields.length;
 
     if (t79CB.outputFields.length <= t79CB.MIN_NUMBER_OF_SHADES) {
@@ -105,14 +108,6 @@ function stepSelector(button) {
         t79CB.stepButtonPluss.setAttribute('data-active', 'true');
     }
 
-}
-
-function setNumberOfShades(e) {
-    if (e == null) {
-        setupOutputFieldsTable(5);
-    } else {
-        setupOutputFieldsTable(parseInt(e.target.value));
-    }
 }
 
 function setupOutputFieldsTable(numberOfShades) {
@@ -234,7 +229,6 @@ function initColorInputTextfield() {
 }
 
 function setEventListener() {
-    t79CB.inputNumberOfShadesSlider.addEventListener('input', setNumberOfShades);
     t79CB.inputColorText1.addEventListener('input', setColor);
     t79CB.inputColorPicker1.addEventListener('input', setColor);
     t79CB.inputColorText2.addEventListener('input', setColor);
@@ -243,7 +237,6 @@ function setEventListener() {
 
 function getElements() {
     t79CB.outputColorField = document.getElementById('output-colors');
-    t79CB.inputNumberOfShadesSlider = document.getElementById('number-of-shades-slider');
     t79CB.inputColorText1 = document.getElementById('color-text-1');
     t79CB.inputColorPicker1 = document.getElementById('color-picker-1');
     t79CB.inputColorText2 = document.getElementById('color-text-2');
