@@ -158,12 +158,14 @@ function setColorShades() {
     const color1 = w3color(value1);
     const rgbColor1Str = color1.toRgbString();
     rect1.style.fill = rgbColor1Str;
+    t79CB.outputFields[0]['textField'].innerHTML = '<span>' + color1.toHexString() + '</span>';
 
     const value2 = t79CB.inputColorPicker2.value;
     const rect2 = t79CB.outputFields[t79CB.outputFields.length - 1]['svgContainerMainView'].querySelector('.color-rect');
     const color2 = w3color(value2);
     const rgbColor2Str = color2.toRgbString();
     rect2.style.fill = rgbColor2Str;
+    t79CB.outputFields[t79CB.outputFields.length - 1]['textField'].innerHTML = '<span>' + color2.toHexString() + '</span>';
 
     const rgbColor1 = color1.toRgb();
     const rgbColor2 = color2.toRgb();
@@ -173,23 +175,24 @@ function setColorShades() {
     const stepB = (rgbColor2.b - rgbColor1.b) / (t79CB.outputFields.length - 1);
 
     for (colorIndex in t79CB.outputFields) {
-        const rectMain = t79CB.outputFields[colorIndex]['svgContainerMainView'].querySelector('.color-rect');
-        color = {};
+        if (colorIndex > 0 && colorIndex < t79CB.outputFields.length - 1) {
+            const rectMain = t79CB.outputFields[colorIndex]['svgContainerMainView'].querySelector('.color-rect');
+            color = {};
 
-        color['r'] = rgbColor1.r + stepR * colorIndex;
-        color['g'] = rgbColor1.g + stepG * colorIndex;
-        color['b'] = rgbColor1.b + stepB * colorIndex;
+            color['r'] = rgbColor1.r + stepR * colorIndex;
+            color['g'] = rgbColor1.g + stepG * colorIndex;
+            color['b'] = rgbColor1.b + stepB * colorIndex;
 
-        const rgbColor = 'rgb(' + color['r'] + ',' + color['g'] + ',' + color['b'] + ')';
+            const rgbColor = 'rgb(' + color['r'] + ',' + color['g'] + ',' + color['b'] + ')';
 
-        const outputColor = w3color(rgbColor);
+            const outputColor = w3color(rgbColor);
 
-        rectMain.style.fill = rgbColor;
+            rectMain.style.fill = rgbColor;
 
-        t79CB.outputFields[colorIndex]['textField'].innerHTML = '<span>' + outputColor.toHexString() + '</span>';
-        
-        console.log(t79CB.outputFields[colorIndex]['textField'].clientWidth);
-        
+            t79CB.outputFields[colorIndex]['textField'].innerHTML = '<span>' + outputColor.toHexString() + '</span>';
+
+            console.log(t79CB.outputFields[colorIndex]['textField'].clientWidth);
+        }
     }
 
 }
