@@ -178,6 +178,10 @@ input[type=text] {
     display: flex;
     justify-content: center;
     align-items: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
  #step-selector div[data-active="false"] {
      background-color: #fff5;
