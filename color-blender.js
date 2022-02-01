@@ -10,7 +10,7 @@ window.addEventListener('resize', function () {
 });
 
 var t79CB = {
- 
+
 }
 
 function initColorBlender() {
@@ -89,7 +89,7 @@ function setupOutputFieldsTable(numberOfShades) {
     t79CB.outputFields = Array(numberOfShades).fill();
     for (fieldIndex in t79CB.outputFields) {
         let field = {};
-        
+
         const svgContainer = document.createElement('div');
         svgContainer.classList.add('svg-container-main-view');
         field['svgContainerMainView'] = svgContainer;
@@ -110,7 +110,7 @@ function setupOutputFieldsTable(numberOfShades) {
         t79CB.outputFields[fieldIndex] = field;
     }
     constructOutputFields()
-} 
+}
 
 function constructOutputFields() {
 
@@ -128,13 +128,13 @@ function constructOutputFields() {
         colorField.setAttribute('width', String(fieldWidth));
         colorField.setAttribute('height', String(fieldHeight));
 
-        const rectPath = 'M0 0 L0 ' + fieldHeight + ' L' + (fieldWidth-cutof) + ' ' + fieldHeight + ' L' + fieldWidth + ' 0 Z';
+        const rectPath = 'M0 0 L0 ' + fieldHeight + ' L' + (fieldWidth - cutof) + ' ' + fieldHeight + ' L' + fieldWidth + ' 0 Z';
         const colorPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         colorPath.classList.add('color-rect');
         colorPath.setAttributeNS(null, 'd', rectPath);
         colorPath.style.fill = '#ffffff';
         colorField.appendChild(colorPath);
-        
+
         // const colorRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
         // colorRect.classList.add('color-rect');
         // colorRect.setAttributeNS(null, 'width', String(fieldWidth));
@@ -218,7 +218,7 @@ function getElements() {
 }
 
 function interpolation(x, x1, y1, x2, y2) {
-    return y1 + ((x - x1)*(y2-y1))/(x2-x1);
+    return y1 + ((x - x1) * (y2 - y1)) / (x2 - x1);
 }
 
 function getCurrentFontSize() {
