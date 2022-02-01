@@ -10,7 +10,8 @@ window.addEventListener('resize', function () {
 });
 
 var t79CB = {
-
+    MIN_NUMBER_OF_SHADES: 3,
+    MAX_NUMBER_OF_SHADES: 20
 }
 
 function initColorBlender() {
@@ -18,6 +19,7 @@ function initColorBlender() {
     getCurrentFontSize();
     setEventListener();
     setNumberOfShades(null);
+    stepSelector(null);
     initColorInputTextfield();
 }
 
@@ -78,18 +80,31 @@ function checkThatValueIsAColor(value) {
 
 function stepSelector(button) {
 
-    button.style.backgroundColor = '#fff5';
-    window.setTimeout(function () {
-        button.style.backgroundColor = 'white';
-    }, 80);
-
-    if (button.id == 'step-button-minus') {
-        setupOutputFieldsTable(t79CB.outputFields.length - 1);
-    } else if (button.id == 'step-button-plus') {
-        setupOutputFieldsTable(t79CB.outputFields.length + 1);
+    if (button != null && button.getAttribute('data-active') == 'true') {
+        button.style.backgroundColor = '#fff5';
+        window.setTimeout(function () {
+            button.style.backgroundColor = null;
+        }, 80);
+        if (button.id == 'step-button-plus') {
+            setupOutputFieldsTable(t79CB.outputFields.length + 1);
+        } else {
+            setupOutputFieldsTable(t79CB.outputFields.length - 1);
+        }
     }
 
     t79CB.stepStatus.innerHTML = t79CB.outputFields.length;
+
+    if (t79CB.outputFields.length <= t79CB.MIN_NUMBER_OF_SHADES) {
+        t79CB.stepButtonMinus.setAttribute('data-active', 'false');
+        t79CB.stepButtonPluss.setAttribute('data-active', 'true');
+    } else if (t79CB.outputFields.length >= t79CB.MAX_NUMBER_OF_SHADES) {
+        t79CB.stepButtonMinus.setAttribute('data-active', 'true');
+        t79CB.stepButtonPluss.setAttribute('data-active', 'false');
+    } else {
+        t79CB.stepButtonMinus.setAttribute('data-active', 'true');
+        t79CB.stepButtonPluss.setAttribute('data-active', 'true');
+    }
+
 }
 
 function setNumberOfShades(e) {
@@ -235,6 +250,8 @@ function getElements() {
     t79CB.inputColorPicker2 = document.getElementById('color-picker-2');
     t79CB.htmlElement = document.querySelector('html');
     t79CB.stepStatus = document.getElementById('step-status');
+    t79CB.stepButtonMinus = document.getElementById('step-button-minus');
+    t79CB.stepButtonPluss = document.getElementById('step-button-plus');
 
 }
 

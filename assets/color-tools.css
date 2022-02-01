@@ -179,11 +179,19 @@ input[type=text] {
     justify-content: center;
     align-items: center;
 }
+ #step-selector div[data-active="false"] {
+     background-color: #fff5;
+ }
+
 
 #step-selector div:not(:last-child) {
     border-right: none;
 }
 
-#step-selector div:first-child {
-    background-color: #fff5;
+#step-selector div:first-child{
+    cursor: pointer;
+}
+
+#step-selector div:last-child{
+    cursor: pointer;
 }
