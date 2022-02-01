@@ -11,7 +11,10 @@ window.addEventListener('resize', function () {
 
 var t79CB = {
     MIN_NUMBER_OF_SHADES: 3,
-    MAX_NUMBER_OF_SHADES: 20
+    MAX_NUMBER_OF_SHADES: 20,
+
+    colorInfoTextWidth: 0,
+    colorInfoTextHeight: 0
 }
 
 function initColorBlender() {
@@ -183,19 +186,8 @@ function constructOutputFields() {
 
 function setColorShades() {
 
-    const value1 = t79CB.inputColorPicker1.value;
-    const rect1 = t79CB.outputFields[0]['svgContainerMainView'].querySelector('.color-rect');
-    const color1 = w3color(value1);
-    const rgbColor1Str = color1.toRgbString();
-    rect1.style.fill = rgbColor1Str;
-    t79CB.outputFields[0]['textField'].innerHTML = '<span>' + color1.toHexString() + '</span>';
-
-    const value2 = t79CB.inputColorPicker2.value;
-    const rect2 = t79CB.outputFields[t79CB.outputFields.length - 1]['svgContainerMainView'].querySelector('.color-rect');
-    const color2 = w3color(value2);
-    const rgbColor2Str = color2.toRgbString();
-    rect2.style.fill = rgbColor2Str;
-    t79CB.outputFields[t79CB.outputFields.length - 1]['textField'].innerHTML = '<span>' + color2.toHexString() + '</span>';
+    const color1 = w3color(t79CB.inputColorPicker1.value);
+    const color2 = w3color(t79CB.inputColorPicker2.value);
 
     const rgbColor1 = color1.toRgb();
     const rgbColor2 = color2.toRgb();
@@ -204,25 +196,121 @@ function setColorShades() {
     const stepG = (rgbColor2.g - rgbColor1.g) / (t79CB.outputFields.length - 1);
     const stepB = (rgbColor2.b - rgbColor1.b) / (t79CB.outputFields.length - 1);
 
-    for (colorIndex in t79CB.outputFields) {
-        if (colorIndex > 0 && colorIndex < t79CB.outputFields.length - 1) {
-            const rectMain = t79CB.outputFields[colorIndex]['svgContainerMainView'].querySelector('.color-rect');
-            color = {};
+    t79CB.colorInfoTextWidth = 0;
+    t79CB.colorInfoTextHeight = 0;
 
-            color['r'] = rgbColor1.r + stepR * colorIndex;
-            color['g'] = rgbColor1.g + stepG * colorIndex;
-            color['b'] = rgbColor1.b + stepB * colorIndex;
+    for (fieldIndex in t79CB.outputFields) {
 
-            const rgbColor = 'rgb(' + color['r'] + ',' + color['g'] + ',' + color['b'] + ')';
+        var color;
 
-            const outputColor = w3color(rgbColor);
+        if (fieldIndex == 0) {
+            color = color1;
+        } else if (fieldIndex == t79CB.outputFields.length - 1) {
+            color = color2;
+        } else {
 
-            rectMain.style.fill = rgbColor;
+            color3 = {};
 
-            t79CB.outputFields[colorIndex]['textField'].innerHTML = '<span>' + outputColor.toHexString() + '</span>';
+            color3['r'] = rgbColor1.r + stepR * fieldIndex;
+            color3['g'] = rgbColor1.g + stepG * fieldIndex;
+            color3['b'] = rgbColor1.b + stepB * fieldIndex;
 
-            console.log(t79CB.outputFields[colorIndex]['textField'].clientWidth);
+            const rgbColor = 'rgb(' + color3['r'] + ',' + color3['g'] + ',' + color3['b'] + ')';
+            color = w3color(rgbColor);
         }
+
+        t79CB.outputFields[fieldIndex]['color'] = color;
+
+        const colorText = document.createElement('div');
+        const value1 = document.createElement('span');
+        value1.innerHTML = color.toHexString();
+        const value2 = document.createElement('span');
+        value2.innerHTML = color.toRgbString();
+        const value3 = document.createElement('span');
+        value3.innerHTML = color.toHslString();
+        colorText.appendChild(value1);
+        colorText.appendChild(value2);
+        colorText.appendChild(value3);
+        colorText.style.display = 'inline-block';
+        colorText.style.fontSize = '1em';
+        colorText.style.width = '100%';
+
+        t79CB.outputFields[fieldIndex]['textField'].innerHTML = '';
+        t79CB.outputFields[fieldIndex]['textField'].appendChild(colorText);
+
+        if (colorText.clientWidth > t79CB.colorInfoTextWidth) {
+            t79CB.colorInfoTextWidth = colorText.clientWidth;
+        }
+        if (colorText.clientHeight > t79CB.colorInfoTextHeight) {
+            t79CB.colorInfoTextHeight = colorText.clientHeight;
+        }
+    }
+
+    if (t79CB.colorInfoTextWidth > t79CB.outputColorField.clientWidth * 0.55) {
+        
+        t79CB.colorInfoTextWidth = 0;
+        t79CB.colorInfoTextHeight = 0;
+
+        for (fieldIndex in t79CB.outputFields) {
+            textElm = t79CB.outputFields[fieldIndex]['textField'].firstChild;
+            textElm.style.fontSize = '0.9em';
+            if (textElm.clientWidth > t79CB.colorInfoTextWidth) {
+                t79CB.colorInfoTextWidth = textElm.clientWidth;
+            }
+            if (textElm.clientHeight > t79CB.colorInfoTextHeight) {
+                t79CB.colorInfoTextHeight = textElm.clientHeight;
+            }
+        }
+    }
+
+    
+
+    if (t79CB.colorInfoTextWidth > t79CB.outputColorField.clientWidth * 0.55) {
+        
+        t79CB.colorInfoTextWidth = 0;
+        t79CB.colorInfoTextHeight = 0;
+
+        for (fieldIndex in t79CB.outputFields) {
+            textElm = t79CB.outputFields[fieldIndex]['textField'].firstChild;
+            textElm.style.fontSize = '0.9em';
+            textElm.firstChild.style.width = '100%';
+            textElm.firstChild.style.display = 'block';
+            if (textElm.clientWidth > t79CB.colorInfoTextWidth) {
+                t79CB.colorInfoTextWidth = textElm.clientWidth;
+            }
+            if (textElm.clientHeight > t79CB.colorInfoTextHeight) {
+                t79CB.colorInfoTextHeight = textElm.clientHeight;
+            }
+        }
+    }
+
+    if (t79CB.colorInfoTextWidth > t79CB.outputColorField.clientWidth * 0.55) {
+        
+        t79CB.colorInfoTextWidth = 0;
+        t79CB.colorInfoTextHeight = 0;
+
+        for (fieldIndex in t79CB.outputFields) {
+            textElm = t79CB.outputFields[fieldIndex]['textField'].firstChild;
+            textElm.style.fontSize = '0.9em';
+            textElm.firstChild.nextSibling.style.width = '100%';
+            textElm.firstChild.nextSibling.style.display = 'block';
+            if (textElm.clientWidth > t79CB.colorInfoTextWidth) {
+                t79CB.colorInfoTextWidth = textElm.clientWidth;
+            }
+            if (textElm.clientHeight > t79CB.colorInfoTextHeight) {
+                t79CB.colorInfoTextHeight = textElm.clientHeight;
+            }
+        }
+    }
+
+    constructOutputFieldsPart2();
+
+    for (fieldIndex in t79CB.outputFields) {
+        const rectMain = t79CB.outputFields[fieldIndex]['svgContainerMainView'].querySelector('.color-rect');
+        const rectTop = t79CB.outputFields[fieldIndex]['svgContainerTopView'].querySelector('.color-rect');
+
+        rectMain.style.fill = t79CB.outputFields[fieldIndex]['color'].toRgbString();
+        rectTop.style.fill = t79CB.outputFields[fieldIndex]['color'].toRgbString();
     }
 
 }
