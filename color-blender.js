@@ -147,38 +147,35 @@ function setupOutputFieldsTable(numberOfShades) {
 
 function constructOutputFields() {
 
-    const outputDivWidth = t79CB.outputColorField.clientWidth;
+    let fieldWidth = t79CB.outputColorField.clientWidth / t79CB.outputFields.length;
+    const fieldHeight = t79CB.curentFontSize * 4;
 
-    const standarFieldHeight = t79CB.curentFontSize * 6;
-    const minStandardFieldHeight = t79CB.curentFontSize * 3.5;
-    const cutof = t79CB.curentFontSize * 0.5;
-
-    const fieldHeight = interpolation(t79CB.outputFields.length, 3, standarFieldHeight, 20, minStandardFieldHeight);
-    const fieldWidth = outputDivWidth - 100;
+    console.log('fieldwidth: ' + fieldWidth + ' textWidth: ' + t79CB.colorInfoTextWidth);
 
     for (fieldIndex in t79CB.outputFields) {
+
+        var fWidth;
+        if (fieldIndex > 0) {
+            fWidth = fieldWidth + 5;
+        } else {
+            fWidth = fieldWidth
+        }
+
         const colorField = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
-        colorField.setAttribute('width', String(fieldWidth));
+        colorField.setAttribute('width', String(fWidth));
         colorField.setAttribute('height', String(fieldHeight));
 
-        const rectPath = 'M0 0 L0 ' + fieldHeight + ' L' + (fieldWidth - cutof) + ' ' + fieldHeight + ' L' + fieldWidth + ' 0 Z';
-        const colorPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        colorPath.classList.add('color-rect');
-        colorPath.setAttributeNS(null, 'd', rectPath);
-        colorPath.style.fill = '#ffffff';
-        colorField.appendChild(colorPath);
+        const colorRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        colorRect.classList.add('color-rect');
+        colorRect.setAttributeNS(null, 'width', String(fWidth));
+        colorRect.setAttributeNS(null, 'height', String(fieldHeight));
+        colorRect.style.fill = '#ffffff';
+        colorField.appendChild(colorRect);
 
-        // const colorRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-        // colorRect.classList.add('color-rect');
-        // colorRect.setAttributeNS(null, 'width', String(fieldWidth));
-        // colorRect.setAttributeNS(null, 'height', String(fieldHeight));
-        // colorRect.style.fill = '#ffffff';
-        // colorField.appendChild(colorRect);
-
-        t79CB.outputFields[fieldIndex]['svgContainerMainView'].innerHTML = '';
-        t79CB.outputFields[fieldIndex]['svgContainerMainView'].appendChild(colorField);
-        t79CB.outputFields[fieldIndex]['svgContainerMainView'].setAttribute('width', String(fieldWidth) + 'px');
-        t79CB.outputFields[fieldIndex]['svgContainerMainView'].style.height = String(fieldHeight) + 'px';
+        t79CB.outputFields[fieldIndex]['svgContainerTopView'].innerHTML = '';
+        t79CB.outputFields[fieldIndex]['svgContainerTopView'].appendChild(colorField);
+        t79CB.outputFields[fieldIndex]['svgContainerTopView'].setAttribute('width', String(fWidth) + 'px');
+        t79CB.outputFields[fieldIndex]['svgContainerTopView'].style.height = String(fieldHeight) + 'px';
     }
 
     setColorShades();
@@ -229,6 +226,40 @@ function setColorShades() {
     }
 
 }
+
+
+function constructOutputFieldsPart2() {
+
+    const outputDivWidth = t79CB.outputColorField.clientWidth;
+
+    const standarFieldHeight = t79CB.curentFontSize * 6;
+    const minStandardFieldHeight = t79CB.curentFontSize * 3.5;
+    const cutof = t79CB.curentFontSize * 0.5;
+
+    const fieldHeight = Math.max(interpolation(t79CB.outputFields.length, 3, standarFieldHeight, 20, minStandardFieldHeight), (t79CB.colorInfoTextHeight + t79CB.curentFontSize) );
+    console.log('fieldHeight: ' + fieldHeight + '  ' + (t79CB.colorInfoTextHeight + t79CB.curentFontSize) + '  ' + interpolation(t79CB.outputFields.length, 3, standarFieldHeight, 20, minStandardFieldHeight) );
+    const fieldWidth = outputDivWidth - (t79CB.colorInfoTextWidth + t79CB.curentFontSize*2);
+
+    for (fieldIndex in t79CB.outputFields) {
+        const colorField = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
+        colorField.setAttribute('width', String(fieldWidth));
+        colorField.setAttribute('height', String(fieldHeight));
+
+        const rectPath = 'M0 0 L0 ' + fieldHeight + ' L' + (fieldWidth - cutof) + ' ' + fieldHeight + ' L' + fieldWidth + ' 0 Z';
+        const colorPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        colorPath.classList.add('color-rect');
+        colorPath.setAttributeNS(null, 'd', rectPath);
+        colorPath.style.fill = '#ffffff';
+        colorField.appendChild(colorPath);
+
+        t79CB.outputFields[fieldIndex]['svgContainerMainView'].innerHTML = '';
+        t79CB.outputFields[fieldIndex]['svgContainerMainView'].appendChild(colorField);
+        t79CB.outputFields[fieldIndex]['svgContainerMainView'].setAttribute('width', String(fieldWidth) + 'px');
+        t79CB.outputFields[fieldIndex]['svgContainerMainView'].style.height = String(fieldHeight) + 'px';
+    }
+}
+
+
 
 function initColorInputTextfield() {
     t79CB.inputColorText1.value = t79CB.inputColorPicker1.value;
