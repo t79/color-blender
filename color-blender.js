@@ -112,6 +112,7 @@ function stepSelector(button) {
 
 function setupOutputFieldsTable(numberOfShades) {
     t79CB.outputColorField.innerHTML = '';
+    t79CB.outputColorFieldTop.innerHTML = '';
     t79CB.outputFields = Array(numberOfShades).fill();
     for (fieldIndex in t79CB.outputFields) {
         let field = {};
@@ -119,6 +120,10 @@ function setupOutputFieldsTable(numberOfShades) {
         const svgContainer = document.createElement('div');
         svgContainer.classList.add('svg-container-main-view');
         field['svgContainerMainView'] = svgContainer;
+
+        const svgTopContainer = document.createElement('div');
+        svgTopContainer.classList.add('svg-container-top-view');
+        field['svgContainerTopView'] = svgTopContainer;
 
         const textPartContainer = document.createElement('div');
         textPartContainer.classList.add('text-part-container');
@@ -134,6 +139,8 @@ function setupOutputFieldsTable(numberOfShades) {
 
         t79CB.outputColorField.appendChild(fieldContainer);
         t79CB.outputFields[fieldIndex] = field;
+
+        t79CB.outputColorFieldTop.appendChild(svgTopContainer);
     }
     constructOutputFields()
 }
@@ -237,6 +244,7 @@ function setEventListener() {
 
 function getElements() {
     t79CB.outputColorField = document.getElementById('output-colors');
+    t79CB.outputColorFieldTop = document.getElementById('top-view');
     t79CB.inputColorText1 = document.getElementById('color-text-1');
     t79CB.inputColorPicker1 = document.getElementById('color-picker-1');
     t79CB.inputColorText2 = document.getElementById('color-text-2');
