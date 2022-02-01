@@ -76,6 +76,22 @@ function checkThatValueIsAColor(value) {
     }
 }
 
+function stepSelector(button) {
+
+    button.style.backgroundColor = '#fff5';
+    window.setTimeout(function () {
+        button.style.backgroundColor = 'white';
+    }, 80);
+
+    if (button.id == 'step-button-minus') {
+        setupOutputFieldsTable(t79CB.outputFields.length - 1);
+    } else if (button.id == 'step-button-plus') {
+        setupOutputFieldsTable(t79CB.outputFields.length + 1);
+    }
+
+    t79CB.stepStatus.innerHTML = t79CB.outputFields.length;
+}
+
 function setNumberOfShades(e) {
     if (e == null) {
         setupOutputFieldsTable(5);
@@ -218,6 +234,8 @@ function getElements() {
     t79CB.inputColorText2 = document.getElementById('color-text-2');
     t79CB.inputColorPicker2 = document.getElementById('color-picker-2');
     t79CB.htmlElement = document.querySelector('html');
+    t79CB.stepStatus = document.getElementById('step-status');
+
 }
 
 function interpolation(x, x1, y1, x2, y2) {

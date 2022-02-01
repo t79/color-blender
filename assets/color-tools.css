@@ -163,3 +163,27 @@ input[type=text] {
     left: 20px;
     top: 0;
 }
+
+#step-selector div {
+    width: 3em;
+    height: 2.5em;
+    margin: 0;
+    padding: 0;
+    float: left;
+    border: 0.1em solid #D2D6E1;
+    background-color: white;
+    color: #081d58;
+    font-weight: 700;
+    font-size: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#step-selector div:not(:last-child) {
+    border-right: none;
+}
+
+#step-selector div:first-child {
+    background-color: #fff5;
+}
