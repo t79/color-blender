@@ -185,6 +185,18 @@ input[type=text] {
     letter-spacing: 0.075em;
 }
 
+#color-input-label, #number-of-shades-input-label {
+    width:100%;
+    display: block;
+    background-color: #fff5;
+    padding: 0.5em;
+    margin: 0;
+}
+
+#number-of-shades-input-label {
+    font-size: 0.9em;
+}
+
 #slider-container {
     position: relative;
     display: inline-block;
@@ -207,7 +219,7 @@ input[type=text] {
 }
 
 #step-selector div {
-    width: 3em;
+    width: 3.5em;
     height: 2.5em;
     margin: 0;
     padding: 0;
