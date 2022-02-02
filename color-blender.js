@@ -10,14 +10,18 @@ window.addEventListener('resize', function () {
 });
 
 var t79CB = {
- 
+    MIN_NUMBER_OF_SHADES: 3,
+    MAX_NUMBER_OF_SHADES: 20,
+
+    colorInfoTextWidth: 0,
+    colorInfoTextHeight: 0
 }
 
 function initColorBlender() {
     getElements();
     getCurrentFontSize();
     setEventListener();
-    setNumberOfShades(null);
+    stepSelector(null);
     initColorInputTextfield();
 }
 
@@ -45,29 +49,84 @@ function checkThatValueIsAColor(value) {
     if (/^(#{1})([0-9A-F]{6})$/i.test(value)) { // #081d58
         return value;
     }
-    if (/^(#{1})([0-9A-F]{3})$/i.test(value)) { // #126
+    if (/^([0-9A-F]{6})$/i.test(value)) {
+        return '#' + value;
+    }
+    if (/^(#{1})([0-9A-F]{3})$/i.test(value)) {
         v = value.split('');
         return '' + v[0] + v[1] + v[1] + v[2] + v[2] + v[3] + v[3];
     }
+    if (/^([0-9A-F]{3})$/i.test(value)) {
+        v = value.split('');
+        return '#' + v[0] + v[0] + v[1] + v[1] + v[2] + v[2];
+    }
+    if (/^rgb\((\d{1,3}),(\d{1,3}),(\d{1,3})\)$/i.test(value)) {
+        const color = w3color(value);
+        return color.toHexString();
+    }
+    if (/^(\d{1,3})\s(\d{1,3})\s(\d{1,3})$/i.test(value)) {
+        const d = value.split(' ');
+        const color = w3color('rgb(' + d[0] + ',' + d[1] + ',' + d[2] + ')');
+        return color.toHexString();
+    }
+    if (/^hsl\((\d{1,3}),\s*(\d{1,3})%,\s*(\d{1,3})%\)$/i.test(value)) {
+        const color = w3color(value);
+        return color.toHexString();
+    }
+    if (/^(\d{1,3})\s*(\d{1,3})%\s*(\d{1,3})%$/i.test(value)) {
+        const d = value.split(' ');
+        const color = w3color('hsl(' + d[0] + ',' + d[1] + ',' + d[2] + ')');
+        return color.toHexString();
+    }
 }
 
-function setNumberOfShades(e) {
-    if (e == null) {
-        setupOutputFieldsTable(5);
-    } else {
-        setupOutputFieldsTable(parseInt(e.target.value));
+function stepSelector(button) {
+
+    if (button != null && button.getAttribute('data-active') == 'true') {
+        button.style.backgroundColor = '#fff5';
+        window.setTimeout(function () {
+            button.style.backgroundColor = null;
+        }, 80);
+        if (button.id == 'step-button-plus') {
+            setupOutputFieldsTable(t79CB.outputFields.length + 1);
+        } else {
+            setupOutputFieldsTable(t79CB.outputFields.length - 1);
+        }
     }
+
+    if (button == null) {
+        setupOutputFieldsTable(5);
+    }
+
+    t79CB.stepStatus.innerHTML = t79CB.outputFields.length;
+
+    if (t79CB.outputFields.length <= t79CB.MIN_NUMBER_OF_SHADES) {
+        t79CB.stepButtonMinus.setAttribute('data-active', 'false');
+        t79CB.stepButtonPluss.setAttribute('data-active', 'true');
+    } else if (t79CB.outputFields.length >= t79CB.MAX_NUMBER_OF_SHADES) {
+        t79CB.stepButtonMinus.setAttribute('data-active', 'true');
+        t79CB.stepButtonPluss.setAttribute('data-active', 'false');
+    } else {
+        t79CB.stepButtonMinus.setAttribute('data-active', 'true');
+        t79CB.stepButtonPluss.setAttribute('data-active', 'true');
+    }
+
 }
 
 function setupOutputFieldsTable(numberOfShades) {
     t79CB.outputColorField.innerHTML = '';
+    t79CB.outputColorFieldTop.innerHTML = '';
     t79CB.outputFields = Array(numberOfShades).fill();
     for (fieldIndex in t79CB.outputFields) {
         let field = {};
-        
+
         const svgContainer = document.createElement('div');
         svgContainer.classList.add('svg-container-main-view');
         field['svgContainerMainView'] = svgContainer;
+
+        const svgTopContainer = document.createElement('div');
+        svgTopContainer.classList.add('svg-container-top-view');
+        field['svgContainerTopView'] = svgTopContainer;
 
         const textPartContainer = document.createElement('div');
         textPartContainer.classList.add('text-part-container');
@@ -83,36 +142,43 @@ function setupOutputFieldsTable(numberOfShades) {
 
         t79CB.outputColorField.appendChild(fieldContainer);
         t79CB.outputFields[fieldIndex] = field;
+
+        t79CB.outputColorFieldTop.appendChild(svgTopContainer);
     }
     constructOutputFields()
-} 
+}
 
 function constructOutputFields() {
 
-    const outputDivWidth = t79CB.outputColorField.clientWidth;
+    let fieldWidth = t79CB.outputColorField.clientWidth / t79CB.outputFields.length;
+    const fieldHeight = t79CB.curentFontSize * 4;
 
-    const standarFieldHeight = t79CB.curentFontSize * 4;
-    const minStandardFieldHeight = t79CB.curentFontSize * 1.8;
-
-    const fieldHeight = interpolation(t79CB.outputFields.length, 3, standarFieldHeight, 20, minStandardFieldHeight);
-    const fieldWidth = outputDivWidth - 100;
+    console.log('fieldwidth: ' + fieldWidth + ' textWidth: ' + t79CB.colorInfoTextWidth);
 
     for (fieldIndex in t79CB.outputFields) {
+
+        var fWidth;
+        if (fieldIndex > 0) {
+            fWidth = fieldWidth + 5;
+        } else {
+            fWidth = fieldWidth
+        }
+
         const colorField = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
-        colorField.setAttribute('width', String(fieldWidth));
+        colorField.setAttribute('width', String(fWidth));
         colorField.setAttribute('height', String(fieldHeight));
 
         const colorRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
         colorRect.classList.add('color-rect');
-        colorRect.setAttributeNS(null, 'width', String(fieldWidth));
+        colorRect.setAttributeNS(null, 'width', String(fWidth));
         colorRect.setAttributeNS(null, 'height', String(fieldHeight));
         colorRect.style.fill = '#ffffff';
         colorField.appendChild(colorRect);
 
-        t79CB.outputFields[fieldIndex]['svgContainerMainView'].innerHTML = '';
-        t79CB.outputFields[fieldIndex]['svgContainerMainView'].appendChild(colorField);
-        t79CB.outputFields[fieldIndex]['svgContainerMainView'].setAttribute('width', String(fieldWidth) + 'px');
-        t79CB.outputFields[fieldIndex]['svgContainerMainView'].style.height = String(fieldHeight) + 'px';
+        t79CB.outputFields[fieldIndex]['svgContainerTopView'].innerHTML = '';
+        t79CB.outputFields[fieldIndex]['svgContainerTopView'].appendChild(colorField);
+        t79CB.outputFields[fieldIndex]['svgContainerTopView'].setAttribute('width', String(fWidth) + 'px');
+        t79CB.outputFields[fieldIndex]['svgContainerTopView'].style.height = String(fieldHeight) + 'px';
     }
 
     setColorShades();
@@ -120,17 +186,8 @@ function constructOutputFields() {
 
 function setColorShades() {
 
-    const value1 = t79CB.inputColorPicker1.value;
-    const rect1 = t79CB.outputFields[0]['svgContainerMainView'].querySelector('.color-rect');
-    const color1 = w3color(value1);
-    const rgbColor1Str = color1.toRgbString();
-    rect1.style.fill = rgbColor1Str;
-
-    const value2 = t79CB.inputColorPicker2.value;
-    const rect2 = t79CB.outputFields[t79CB.outputFields.length - 1]['svgContainerMainView'].querySelector('.color-rect');
-    const color2 = w3color(value2);
-    const rgbColor2Str = color2.toRgbString();
-    rect2.style.fill = rgbColor2Str;
+    const color1 = w3color(t79CB.inputColorPicker1.value);
+    const color2 = w3color(t79CB.inputColorPicker2.value);
 
     const rgbColor1 = color1.toRgb();
     const rgbColor2 = color2.toRgb();
@@ -139,27 +196,158 @@ function setColorShades() {
     const stepG = (rgbColor2.g - rgbColor1.g) / (t79CB.outputFields.length - 1);
     const stepB = (rgbColor2.b - rgbColor1.b) / (t79CB.outputFields.length - 1);
 
-    for (colorIndex in t79CB.outputFields) {
-        const rectMain = t79CB.outputFields[colorIndex]['svgContainerMainView'].querySelector('.color-rect');
-        color = {};
+    t79CB.colorInfoTextWidth = 0;
+    t79CB.colorInfoTextHeight = 0;
 
-        color['r'] = rgbColor1.r + stepR * colorIndex;
-        color['g'] = rgbColor1.g + stepG * colorIndex;
-        color['b'] = rgbColor1.b + stepB * colorIndex;
+    for (fieldIndex in t79CB.outputFields) {
 
-        const rgbColor = 'rgb(' + color['r'] + ',' + color['g'] + ',' + color['b'] + ')';
+        var color;
 
-        const outputColor = w3color(rgbColor);
+        if (fieldIndex == 0) {
+            color = color1;
+        } else if (fieldIndex == t79CB.outputFields.length - 1) {
+            color = color2;
+        } else {
 
-        rectMain.style.fill = rgbColor;
+            color3 = {};
 
-        t79CB.outputFields[colorIndex]['textField'].innerHTML = '<span>' + outputColor.toHexString() + '</span>';
+            color3['r'] = rgbColor1.r + stepR * fieldIndex;
+            color3['g'] = rgbColor1.g + stepG * fieldIndex;
+            color3['b'] = rgbColor1.b + stepB * fieldIndex;
+
+            const rgbColor = 'rgb(' + color3['r'] + ',' + color3['g'] + ',' + color3['b'] + ')';
+            color = w3color(rgbColor);
+        }
+
+        t79CB.outputFields[fieldIndex]['color'] = color;
+
+        const colorText = document.createElement('div');
+        const value1 = document.createElement('span');
+        value1.innerHTML = color.toHexString();
+        const value2 = document.createElement('span');
+        value2.innerHTML = color.toRgbString();
+        const value3 = document.createElement('span');
+        value3.innerHTML = color.toHslString();
+        colorText.appendChild(value1);
+        colorText.appendChild(value2);
+        colorText.appendChild(value3);
+        colorText.style.display = 'inline-block';
+        colorText.style.fontSize = '1em';
+        colorText.style.width = '100%';
+
+        t79CB.outputFields[fieldIndex]['textField'].innerHTML = '';
+        t79CB.outputFields[fieldIndex]['textField'].appendChild(colorText);
+
+        if (colorText.clientWidth > t79CB.colorInfoTextWidth) {
+            t79CB.colorInfoTextWidth = colorText.clientWidth;
+        }
+        if (colorText.clientHeight > t79CB.colorInfoTextHeight) {
+            t79CB.colorInfoTextHeight = colorText.clientHeight;
+        }
+    }
+
+    if (t79CB.colorInfoTextWidth > t79CB.outputColorField.clientWidth * 0.55) {
         
-        console.log(t79CB.outputFields[colorIndex]['textField'].clientWidth);
+        t79CB.colorInfoTextWidth = 0;
+        t79CB.colorInfoTextHeight = 0;
+
+        for (fieldIndex in t79CB.outputFields) {
+            textElm = t79CB.outputFields[fieldIndex]['textField'].firstChild;
+            textElm.style.fontSize = '0.9em';
+            if (textElm.clientWidth > t79CB.colorInfoTextWidth) {
+                t79CB.colorInfoTextWidth = textElm.clientWidth;
+            }
+            if (textElm.clientHeight > t79CB.colorInfoTextHeight) {
+                t79CB.colorInfoTextHeight = textElm.clientHeight;
+            }
+        }
+    }
+
+    
+
+    if (t79CB.colorInfoTextWidth > t79CB.outputColorField.clientWidth * 0.55) {
         
+        t79CB.colorInfoTextWidth = 0;
+        t79CB.colorInfoTextHeight = 0;
+
+        for (fieldIndex in t79CB.outputFields) {
+            textElm = t79CB.outputFields[fieldIndex]['textField'].firstChild;
+            textElm.style.fontSize = '0.9em';
+            textElm.firstChild.style.width = '100%';
+            textElm.firstChild.style.display = 'block';
+            if (textElm.clientWidth > t79CB.colorInfoTextWidth) {
+                t79CB.colorInfoTextWidth = textElm.clientWidth;
+            }
+            if (textElm.clientHeight > t79CB.colorInfoTextHeight) {
+                t79CB.colorInfoTextHeight = textElm.clientHeight;
+            }
+        }
+    }
+
+    if (t79CB.colorInfoTextWidth > t79CB.outputColorField.clientWidth * 0.55) {
+        
+        t79CB.colorInfoTextWidth = 0;
+        t79CB.colorInfoTextHeight = 0;
+
+        for (fieldIndex in t79CB.outputFields) {
+            textElm = t79CB.outputFields[fieldIndex]['textField'].firstChild;
+            textElm.style.fontSize = '0.9em';
+            textElm.firstChild.nextSibling.style.width = '100%';
+            textElm.firstChild.nextSibling.style.display = 'block';
+            if (textElm.clientWidth > t79CB.colorInfoTextWidth) {
+                t79CB.colorInfoTextWidth = textElm.clientWidth;
+            }
+            if (textElm.clientHeight > t79CB.colorInfoTextHeight) {
+                t79CB.colorInfoTextHeight = textElm.clientHeight;
+            }
+        }
+    }
+
+    constructOutputFieldsPart2();
+
+    for (fieldIndex in t79CB.outputFields) {
+        const rectMain = t79CB.outputFields[fieldIndex]['svgContainerMainView'].querySelector('.color-rect');
+        const rectTop = t79CB.outputFields[fieldIndex]['svgContainerTopView'].querySelector('.color-rect');
+
+        rectMain.style.fill = t79CB.outputFields[fieldIndex]['color'].toRgbString();
+        rectTop.style.fill = t79CB.outputFields[fieldIndex]['color'].toRgbString();
     }
 
 }
+
+
+function constructOutputFieldsPart2() {
+
+    const outputDivWidth = t79CB.outputColorField.clientWidth;
+
+    const standarFieldHeight = t79CB.curentFontSize * 6;
+    const minStandardFieldHeight = t79CB.curentFontSize * 3.5;
+    const cutof = t79CB.curentFontSize * 0.5;
+
+    const fieldHeight = Math.max(interpolation(t79CB.outputFields.length, 3, standarFieldHeight, 20, minStandardFieldHeight), (t79CB.colorInfoTextHeight + t79CB.curentFontSize) );
+    console.log('fieldHeight: ' + fieldHeight + '  ' + (t79CB.colorInfoTextHeight + t79CB.curentFontSize) + '  ' + interpolation(t79CB.outputFields.length, 3, standarFieldHeight, 20, minStandardFieldHeight) );
+    const fieldWidth = outputDivWidth - (t79CB.colorInfoTextWidth + t79CB.curentFontSize*2);
+
+    for (fieldIndex in t79CB.outputFields) {
+        const colorField = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
+        colorField.setAttribute('width', String(fieldWidth));
+        colorField.setAttribute('height', String(fieldHeight));
+
+        const rectPath = 'M0 0 L0 ' + fieldHeight + ' L' + (fieldWidth - cutof) + ' ' + fieldHeight + ' L' + fieldWidth + ' 0 Z';
+        const colorPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        colorPath.classList.add('color-rect');
+        colorPath.setAttributeNS(null, 'd', rectPath);
+        colorPath.style.fill = '#ffffff';
+        colorField.appendChild(colorPath);
+
+        t79CB.outputFields[fieldIndex]['svgContainerMainView'].innerHTML = '';
+        t79CB.outputFields[fieldIndex]['svgContainerMainView'].appendChild(colorField);
+        t79CB.outputFields[fieldIndex]['svgContainerMainView'].setAttribute('width', String(fieldWidth) + 'px');
+        t79CB.outputFields[fieldIndex]['svgContainerMainView'].style.height = String(fieldHeight) + 'px';
+    }
+}
+
+
 
 function initColorInputTextfield() {
     t79CB.inputColorText1.value = t79CB.inputColorPicker1.value;
@@ -167,7 +355,6 @@ function initColorInputTextfield() {
 }
 
 function setEventListener() {
-    t79CB.inputNumberOfShadesSlider.addEventListener('input', setNumberOfShades);
     t79CB.inputColorText1.addEventListener('input', setColor);
     t79CB.inputColorPicker1.addEventListener('input', setColor);
     t79CB.inputColorText2.addEventListener('input', setColor);
@@ -176,16 +363,20 @@ function setEventListener() {
 
 function getElements() {
     t79CB.outputColorField = document.getElementById('output-colors');
-    t79CB.inputNumberOfShadesSlider = document.getElementById('number-of-shades-slider');
+    t79CB.outputColorFieldTop = document.getElementById('top-view');
     t79CB.inputColorText1 = document.getElementById('color-text-1');
     t79CB.inputColorPicker1 = document.getElementById('color-picker-1');
     t79CB.inputColorText2 = document.getElementById('color-text-2');
     t79CB.inputColorPicker2 = document.getElementById('color-picker-2');
     t79CB.htmlElement = document.querySelector('html');
+    t79CB.stepStatus = document.getElementById('step-status');
+    t79CB.stepButtonMinus = document.getElementById('step-button-minus');
+    t79CB.stepButtonPluss = document.getElementById('step-button-plus');
+
 }
 
 function interpolation(x, x1, y1, x2, y2) {
-    return y1 + ((x - x1)*(y2-y1))/(x2-x1);
+    return y1 + ((x - x1) * (y2 - y1)) / (x2 - x1);
 }
 
 function getCurrentFontSize() {

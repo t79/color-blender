@@ -43,6 +43,10 @@ main {
 	row-gap: calc(0.6em + 1.5vw);
 }
 
+span {
+    margin: 0 0.5em 0 0.5em;
+}
+
 .content-block-container {
     width: 100%;
     display: flex;
@@ -54,7 +58,7 @@ main {
     position: relative;
     display: flex;
 	justify-content: flex-start;
-	flex-flow: row wrap;
+	flex-flow: column nowrap;
 	align-content: flex-start;
     width: min(calc(40em + 25vw), 90vw);
     border-radius: 0.3em;
@@ -74,10 +78,29 @@ main {
     color: #3a4b7a;
 }
 
+.color-terms {
+    margin: 0 0.3em 0 0.3em;
+    font-weight: 700;
+}
 
+#top-view {
+    width: 100%;
+    display: flex;
+	justify-content: flex-start;
+	flex-flow: row nowrap;
+	align-content: flex-start;
+}
+
+#top-view div {
+    margin-left: -5px;
+}
+
+#top-view div:first-child {
+    margin-left: 0;
+}
 
 #input-colors {
-    width: 40%;
+    width: 100%;
     display: flex;
 	justify-content: flex-start;
 	flex-flow: row wrap;
@@ -86,7 +109,7 @@ main {
 
 
 #output-colors {
-    width: 60%;
+    width: 100%;
     display: flex;
 	flex-flow: column nowrap;
 	align-items: flex-start;
@@ -95,7 +118,7 @@ main {
 
 .color-container {
     width: 100%;
-    margin-top : 0.2em;
+    margin-top : -10px;
     display: flex;
 	justify-content: flex-start;
 	flex-flow: row wrap;
@@ -123,19 +146,43 @@ h2 {
 }
 
 input[type=color] {
+    height: 7em;
+    width: 7em;
+    padding: 0;
+    margin-left: -0.5em;
+    margin-top: -0.5em;
+}
 
-    height: 5em;
-    width: 5em;
-    padding: 5px;
-
+.color-picker-container {
+    height: 4em;
+    width: 4em;
+    margin: 0;
+    overflow: hidden;
+}
+.color-input-gui {
+    display: flex;
+	justify-content: flex-start;
+	flex-flow: row wrap;
+    gap: 0;
+	align-content: flex-start;
+}
+#color-pickers {
+    margin: 2em;
+    display: flex;
+	flex-flow: column nowrap;
+	align-items: flex-start;
+    gap: 0.15em;
 }
 
 input[type=text] {
-    height: 3em;
-    width: 7em;
-    padding: 0;
+    height: 4em;
+    width: 12em;
+    padding: 0.5em;
+    margin: 0;
+    border: 0;
     font-size: 1em;
     font-family: "Helvetica", Helvetica, Arial, sans-serif;
+    letter-spacing: 0.075em;
 }
 
 #slider-container {
@@ -157,4 +204,50 @@ input[type=text] {
     transform: rotate(90deg);
     left: 20px;
     top: 0;
+}
+
+#step-selector div {
+    width: 3em;
+    height: 2.5em;
+    margin: 0;
+    padding: 0;
+    float: left;
+    border: 0.1em solid #D2D6E1;
+    background-color: white;
+    color: #081d58;
+    font-weight: 700;
+    font-size: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#column-two {
+    margin: 2em;
+    display: flex;
+	flex-flow: column nowrap;
+	align-items: flex-start;
+    justify-content: flex-end;
+    gap: 0.15em;
+}
+
+ #step-selector div[data-active="false"] {
+     background-color: #fff5;
+ }
+
+
+#step-selector div:not(:last-child) {
+    border-right: none;
+}
+
+#step-selector div:first-child{
+    cursor: pointer;
+}
+
+#step-selector div:last-child{
+    cursor: pointer;
 }
