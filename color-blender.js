@@ -113,6 +113,21 @@ function stepSelector(button) {
 
 }
 
+function colorSpaceSelector(button) {
+
+    if (button == null || button.id == 'color-space-button-rgb') {
+        t79CB.colorSpace = 'RGB';
+        t79CB.colorSpaceButtonRGB.setAttribute('data-selected', 'true');
+        t79CB.colorSpaceButtonHSL.setAttribute('data-selected', 'false');
+    } else {
+        t79CB.colorSpace = 'HSL';
+        t79CB.colorSpaceButtonHSL.setAttribute('data-selected', 'true');
+        t79CB.colorSpaceButtonRGB.setAttribute('data-selected', 'false');
+    }
+
+    setColorShades();
+
+}
 function setupOutputFieldsTable(numberOfShades) {
     t79CB.outputColorField.innerHTML = '';
     t79CB.outputColorFieldTop.innerHTML = '';
@@ -189,12 +204,31 @@ function setColorShades() {
     const color1 = w3color(t79CB.inputColorPicker1.value);
     const color2 = w3color(t79CB.inputColorPicker2.value);
 
-    const rgbColor1 = color1.toRgb();
-    const rgbColor2 = color2.toRgb();
+    var csColor1;
+    var csColor2;
 
-    const stepR = (rgbColor2.r - rgbColor1.r) / (t79CB.outputFields.length - 1);
-    const stepG = (rgbColor2.g - rgbColor1.g) / (t79CB.outputFields.length - 1);
-    const stepB = (rgbColor2.b - rgbColor1.b) / (t79CB.outputFields.length - 1);
+    var step1;
+    var step2;
+    var step3;
+
+    if (t79CB.colorSpace == 'RGB') {
+
+        csColor1 = color1.toRgb();
+        csColor2 = color2.toRgb();
+
+        step1 = (csColor2.r - csColor1.r) / (t79CB.outputFields.length - 1);
+        step2 = (csColor2.g - csColor1.g) / (t79CB.outputFields.length - 1);
+        step3 = (csColor2.b - csColor1.b) / (t79CB.outputFields.length - 1);
+
+    } else if (t79CB.colorSpace == 'HSL') {
+
+        csColor1 = color1.toHsl();
+        csColor2 = color2.toHsl();
+
+        step1 = (csColor2.h - csColor1.h) / (t79CB.outputFields.length - 1);
+        step2 = (csColor2.s - csColor1.s) / (t79CB.outputFields.length - 1);
+        step3 = (csColor2.l - csColor1.l) / (t79CB.outputFields.length - 1);
+    }
 
     t79CB.colorInfoTextWidth = 0;
     t79CB.colorInfoTextHeight = 0;
@@ -209,14 +243,24 @@ function setColorShades() {
             color = color2;
         } else {
 
-            color3 = {};
+            const color3 = {};
 
-            color3['r'] = rgbColor1.r + stepR * fieldIndex;
-            color3['g'] = rgbColor1.g + stepG * fieldIndex;
-            color3['b'] = rgbColor1.b + stepB * fieldIndex;
+            if (t79CB.colorSpace == 'RGB') {
+                color3['r'] = csColor1.r + step1 * fieldIndex;
+                color3['g'] = csColor1.g + step2 * fieldIndex;
+                color3['b'] = csColor1.b + step3 * fieldIndex;
 
-            const rgbColor = 'rgb(' + color3['r'] + ',' + color3['g'] + ',' + color3['b'] + ')';
-            color = w3color(rgbColor);
+                const rgbColor = 'rgb(' + color3['r'] + ',' + color3['g'] + ',' + color3['b'] + ')';
+                color = w3color(rgbColor);
+
+            } else if (t79CB.colorSpace == 'HSL') {
+                color3['h'] = csColor1.h + step1 * fieldIndex;
+                color3['s'] = csColor1.s + step2 * fieldIndex;
+                color3['l'] = csColor1.l + step3 * fieldIndex;
+
+                const hslColor = 'hsl(' + color3['h'] + ',' + color3['s'] + ',' + color3['l'] + ')';
+                color = w3color(hslColor);
+            }
         }
 
         t79CB.outputFields[fieldIndex]['color'] = color;
@@ -372,6 +416,8 @@ function getElements() {
     t79CB.stepStatus = document.getElementById('step-status');
     t79CB.stepButtonMinus = document.getElementById('step-button-minus');
     t79CB.stepButtonPluss = document.getElementById('step-button-plus');
+    t79CB.colorSpaceButtonRGB = document.getElementById('color-space-button-rgb');
+    t79CB.colorSpaceButtonHSL = document.getElementById('color-space-button-hsl');
 
 }
 
