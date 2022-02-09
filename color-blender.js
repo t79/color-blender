@@ -6,7 +6,8 @@ document.addEventListener('readystatechange', function () {
 
 window.addEventListener('resize', function () {
     getCurrentFontSize();
-    constructOutputFields();
+    //constructOutputFields();
+    setupOutputFieldsTable(t79CB.outputFields.length);
 });
 
 var t79CB = {
@@ -14,7 +15,8 @@ var t79CB = {
     MAX_NUMBER_OF_SHADES: 20,
 
     colorInfoTextWidth: 0,
-    colorInfoTextHeight: 0
+    colorInfoTextHeight: 0,
+    colorSpace: 'HSL',
     transparent: 'opaque'
 }
 
@@ -23,6 +25,7 @@ function initColorBlender() {
     getCurrentFontSize();
     setEventListener();
     stepSelector(null);
+    colorSpaceSelector(null);
     initColorInputTextfield();
 }
 
@@ -399,7 +402,7 @@ function setColorShades() {
     }
 
     if (t79CB.colorInfoTextWidth > t79CB.outputColorField.clientWidth * 0.55) {
-        
+
         t79CB.colorInfoTextWidth = 0;
         t79CB.colorInfoTextHeight = 0;
 
@@ -415,10 +418,10 @@ function setColorShades() {
         }
     }
 
-    
+
 
     if (t79CB.colorInfoTextWidth > t79CB.outputColorField.clientWidth * 0.55) {
-        
+
         t79CB.colorInfoTextWidth = 0;
         t79CB.colorInfoTextHeight = 0;
 
@@ -437,7 +440,7 @@ function setColorShades() {
     }
 
     if (t79CB.colorInfoTextWidth > t79CB.outputColorField.clientWidth * 0.55) {
-        
+
         t79CB.colorInfoTextWidth = 0;
         t79CB.colorInfoTextHeight = 0;
 
