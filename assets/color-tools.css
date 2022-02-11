@@ -346,15 +346,16 @@ h2 {
 
 /* ------------------------------------------- */
 
-#number-of-shades {
+.control-container {
     width: 100%;
     border: 0.15em solid black;
 }
 
-#number-of-shades-input-label {
+.control-label{
     padding: 0.5em;
     border-bottom: 0.15em solid black;
     text-align: center;
+    font-size: 0.9em;
     margin: 0;
 }
 
@@ -363,13 +364,18 @@ h2 {
     font-weight: 700;
 }
 
-#step-selector div[data-active="false"] {
+#color-space-selector div {
+    min-width: calc(100%/2);
+    font-weight: 700;
+}
+
+#step-selector div[data-active="false"], #color-space-selector div[data-selected="true"] {
     background-color: #e2e4e9;
     color: black;
     cursor: default;
 }
 
-#step-selector div[data-active="true"] {
+#step-selector div[data-active="true"], #color-space-selector div[data-selected="false"] {
     background-color: blue;
     color: white;
     cursor: pointer;
@@ -389,19 +395,7 @@ h2 {
    cursor: pointer;
 } */
 
-#color-input-label, #color-space-label, #transparent-label {
-    
-    width:100%;
-    display: block;
-    padding: 0.5em;
-    text-align: center;
-    margin: 0;
-    border: 0.15em solid black;
-}
 
-#number-of-shades-input-label, #color-space-label, #transparent-label{
-    font-size: 0.9em;
-}
 
 #step-selector div {
     width: 3.5em;
