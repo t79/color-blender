@@ -101,7 +101,7 @@
                                 <input type="color" id="color-picker-1" value="#e66465">
                             </div>
                         </div>
-                        <div id="color-input-2"> 
+                        <div id="color-input-2">
                             <input type="text" id="color-text-2" onfocus="this.value=''">
                             <div id="picker-container-2" class="color-picker-container">
                                 <input type="color" id="color-picker-2" value="#ffb43f">
@@ -123,10 +123,11 @@
 
             <div class="content-block3">
 
-                
 
-                    <div class="column-three">
-                   
+
+                <div class="column-three">
+
+                    <div id="number-of-shades">
                         <div id="number-of-shades-input-label">
                             Number of shades:
                         </div>
@@ -137,43 +138,44 @@
                             <div id="step-button-plus" onclick="stepSelector(this)" data-active='true'>+</div>
 
                         </div>
-
-
-                        <div id="color-space-label">
-                            Color space:
-                        </div>
-                        <div id="color-space-selector">
-                            <div id="color-space-button-rgb" onclick="colorSpaceSelector(this)" data-selected="false">
-                                RGB</div>
-                            <div id='color-space-button-hsl' onclick='colorSpaceSelector(this)' data-selected='false'>
-                                HSL</div>
-                        </div>
-
-                    </div>
-
-                    <div class="column-three">
-                        
-
-
-                        <div id="transparent-label">
-                            Transparent image:
-                        </div>
-                        <div id="transparent-selector">
-                            <div id="transparent-button-opaque" onclick="transparentSelector(this)"
-                                data-selected="true">opaque</div>
-                            <div id="transparent-button-color" onclick="transparentSelector(this)"
-                                data-selected="false">Color</div>
-                            <div id='transparent-button-bw' onclick='transparentSelector(this)' data-selected='false'>BW
-                            </div>
-                        </div>
-
                     </div>
 
 
+                    <div id="color-space-label">
+                        Color space:
+                    </div>
+                    <div id="color-space-selector">
+                        <div id="color-space-button-rgb" onclick="colorSpaceSelector(this)" data-selected="false">
+                            RGB</div>
+                        <div id='color-space-button-hsl' onclick='colorSpaceSelector(this)' data-selected='false'>
+                            HSL</div>
+                    </div>
 
-                
                 </div>
-                <div class="content-block2">
+
+                <div class="column-three">
+
+
+
+                    <div id="transparent-label">
+                        Transparent image:
+                    </div>
+                    <div id="transparent-selector">
+                        <div id="transparent-button-opaque" onclick="transparentSelector(this)" data-selected="true">
+                            opaque</div>
+                        <div id="transparent-button-color" onclick="transparentSelector(this)" data-selected="false">
+                            Color</div>
+                        <div id='transparent-button-bw' onclick='transparentSelector(this)' data-selected='false'>BW
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+            <div class="content-block2">
 
                 <div id="output-colors">
                 </div>
