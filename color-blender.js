@@ -14,6 +14,8 @@ var t79CB = {
     MIN_NUMBER_OF_SHADES: 3,
     MAX_NUMBER_OF_SHADES: 20,
 
+    pageInit: false,
+
     colorInfoTextWidth: 0,
     colorInfoTextHeight: 0,
     colorSpace: 'HSL',
@@ -31,6 +33,7 @@ function initColorBlender() {
     stepSelector(null);
     colorSpaceSelector(null);
     initColorInputTextfield();
+    t79CB.pageInit = true;
 }
 
 function setColor(e) {
@@ -55,9 +58,11 @@ function setColor(e) {
 
     setColorShades();
 
-    const newPosition = t79CB.controlersContainer.getBoundingClientRect().top;
+    if (t79CB.pageInit) {
+        const newPosition = t79CB.controlersContainer.getBoundingClientRect().top;
+        window.scrollBy(0, (newPosition - oldPosition));
+    }
 
-    window.scrollBy(0,(newPosition - oldPosition));
 }
 
 function checkThatValueIsAColor(value) {
@@ -128,9 +133,10 @@ function stepSelector(button) {
         t79CB.stepButtonPluss.setAttribute('data-active', 'true');
     }
 
-    const newPosition = t79CB.controlersContainer.getBoundingClientRect().top;
-
-    window.scrollBy(0,(newPosition - oldPosition));
+    if (t79CB.pageInit) {
+        const newPosition = t79CB.controlersContainer.getBoundingClientRect().top;
+        window.scrollBy(0, (newPosition - oldPosition));
+    }
 }
 
 function colorSpaceSelector(button) {
@@ -149,9 +155,10 @@ function colorSpaceSelector(button) {
 
     setColorShades();
 
-    const newPosition = t79CB.controlersContainer.getBoundingClientRect().top;
-
-    window.scrollBy(0,(newPosition - oldPosition));
+    if (t79CB.pageInit) {
+        const newPosition = t79CB.controlersContainer.getBoundingClientRect().top;
+        window.scrollBy(0, (newPosition - oldPosition));
+    }
 
 }
 
