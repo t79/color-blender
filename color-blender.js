@@ -419,6 +419,11 @@ function setColorShades() {
 
         const colorText = document.createElement('div');
 
+        if (color.toHexString() in colorNames) {
+            const valueName = document.createElement('span');
+            valueName.innerHTML = colorNames[color.toHexString()];
+            colorText.appendChild(valueName);
+        }
 
         const value1 = document.createElement('span');
         value1.innerHTML = color.toHexString();
