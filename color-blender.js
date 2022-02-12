@@ -191,7 +191,7 @@ function transparentSelector(button) {
 
     const newPosition = t79CB.controlersContainer.getBoundingClientRect().top;
 
-    window.scrollBy(0,(newPosition - oldPosition));
+    window.scrollBy(0, (newPosition - oldPosition));
 }
 
 
@@ -340,8 +340,8 @@ function constructOutputFields() {
     setColorShades();
 }
 
-function setColorShades() {
 
+function setColorShades() {
 
     const color1 = w3color(t79CB.inputColorPicker1.value);
     const color2 = w3color(t79CB.inputColorPicker2.value);
