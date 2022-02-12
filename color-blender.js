@@ -200,12 +200,8 @@ function setupOutputFieldsTable(numberOfShades) {
 
     localStorage.setItem('scrollpos', window.scrollY);
 
-    const cHeightOutput = t79CB.outputColorField.clientHeight;
-    t79CB.outputColorField.style.minHeight = '' + cHeightOutput;
-    t79CB.outputColorField.innerHTML = '';
 
-    const cHeight = t79CB.outputColorFieldTop.clientHeight;
-    t79CB.outputColorFieldTop.style.minHeight = '0px'; //'' + cHeight + 'px';
+    t79CB.outputColorField.innerHTML = '';
     t79CB.outputColorFieldTop.innerHTML = '';
     t79CB.outputColorFieldTransparent.innerHTML = '';
 
@@ -230,18 +226,22 @@ function setupOutputFieldsTable(numberOfShades) {
             t79CB.outputColorFieldTransparent.appendChild(svgTransparentContainer);
         }
 
-        const textPartContainer = document.createElement('div');
-        textPartContainer.classList.add('text-part-container');
-        const textField = document.createElement('span');
+        const textPartContainerMainView = document.createElement('div');
+        textPartContainerMainView.classList.add('text-part-container');
+
+        const textField = document.createElement('div');
         textField.classList.add('color-text-field');
-        textPartContainer.appendChild(textField);
+        textPartContainerMainView.appendChild(textField);
         field['textField'] = textField;
 
+        svgContainer.appendChild(textPartContainerMainView);
 
         const fieldContainer = document.createElement('div');
         fieldContainer.classList.add('color-container');
         fieldContainer.appendChild(svgContainer);
-        fieldContainer.appendChild(textPartContainer);
+
+        const test = document.createElement('div');
+        fieldContainer.appendChild(textField);
 
         t79CB.outputColorField.appendChild(fieldContainer);
         t79CB.outputFields[fieldIndex] = field;
@@ -537,6 +537,7 @@ function getElements() {
     t79CB.transparentButtonColor = document.getElementById('transparent-button-color');
     t79CB.transparentButtonBW = document.getElementById('transparent-button-bw');
 
+    t79CB.controlersContainer = document.getElementById('controlers');
 
 }
 

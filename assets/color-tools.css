@@ -286,6 +286,7 @@ input[type=color] {
 }
 
 .color-container {
+    position: relative;
     width: 100%;
     margin-top : -10px;
     display: flex;
@@ -295,6 +296,15 @@ input[type=color] {
 	align-content: flex-start;
 }
 
+.color-text-field {
+    position: absolute;
+    top: 2em;
+    left: 5em;
+}
+
+.color-text-field span {
+    display: block;
+}
 
 
 h1, h2 {
