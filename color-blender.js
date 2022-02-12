@@ -289,8 +289,6 @@ function constructOutputFields() {
 
     } else {
 
-        //t79CB.outputFields[fieldIndex]['svgContainerTopView'].style.display = 'none';
-
         fieldHeight = interpolation(t79CB.outputFields.length, 3, fieldWidth * 0.5, 20, fieldWidth * 1.5);
 
         for (fieldIndex in t79CB.outputFields) {
@@ -301,15 +299,8 @@ function constructOutputFields() {
             const transparentColumnContainer = document.createElement('div');
             transparentColumnContainer.classList.add('transparent-column-container');
             t79CB.outputFields[fieldIndex]['svgContainerTransparentView'].innerHTML = '';
-            //t79CB.outputFields[fieldIndex]['scgContainerTransparentView'].appendChild(transparentColumnContainer);
 
             for (transparentIndex in transparents) {
-                //const transparentContainer = document.createElement('div');
-                //transparentContainer.classList.add('transparent-container');
-                //transparentColumnContainer.appendChild(transparentContainer);
-
-                //transparentContainer.style.backgroundImage = 'url(assets/astronaut.jpg)';
-                //transparentContainer.style.height = '' + fieldHeight;
                 const colorField = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
                 colorField.classList.add('transparent-field');
                 colorField.setAttribute('width', String(fieldWidth));
