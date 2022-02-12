@@ -289,7 +289,7 @@ function constructOutputFields() {
 
     } else {
 
-        fieldHeight = interpolation(t79CB.outputFields.length, 3, fieldWidth * 0.5, 20, fieldWidth * 1.5);
+        fieldHeight = interpolation(t79CB.outputFields.length, 3, fieldWidth * 0.6, 20, fieldWidth * 2.5);
 
         for (fieldIndex in t79CB.outputFields) {
             let transparents = Array(5).fill();
