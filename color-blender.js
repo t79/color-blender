@@ -436,63 +436,6 @@ function setColorShades() {
         }
     }
 
-    if (t79CB.colorInfoTextWidth > t79CB.outputColorField.clientWidth * 0.55) {
-
-        t79CB.colorInfoTextWidth = 0;
-        t79CB.colorInfoTextHeight = 0;
-
-        for (fieldIndex in t79CB.outputFields) {
-            textElm = t79CB.outputFields[fieldIndex]['textField'].firstChild;
-            textElm.style.fontSize = '0.9em';
-            if (textElm.clientWidth > t79CB.colorInfoTextWidth) {
-                t79CB.colorInfoTextWidth = textElm.clientWidth;
-            }
-            if (textElm.clientHeight > t79CB.colorInfoTextHeight) {
-                t79CB.colorInfoTextHeight = textElm.clientHeight;
-            }
-        }
-    }
-
-
-
-    if (t79CB.colorInfoTextWidth > t79CB.outputColorField.clientWidth * 0.55) {
-
-        t79CB.colorInfoTextWidth = 0;
-        t79CB.colorInfoTextHeight = 0;
-
-        for (fieldIndex in t79CB.outputFields) {
-            textElm = t79CB.outputFields[fieldIndex]['textField'].firstChild;
-            textElm.style.fontSize = '0.9em';
-            textElm.firstChild.style.width = '100%';
-            textElm.firstChild.style.display = 'block';
-            if (textElm.clientWidth > t79CB.colorInfoTextWidth) {
-                t79CB.colorInfoTextWidth = textElm.clientWidth;
-            }
-            if (textElm.clientHeight > t79CB.colorInfoTextHeight) {
-                t79CB.colorInfoTextHeight = textElm.clientHeight;
-            }
-        }
-    }
-
-    if (t79CB.colorInfoTextWidth > t79CB.outputColorField.clientWidth * 0.55) {
-
-        t79CB.colorInfoTextWidth = 0;
-        t79CB.colorInfoTextHeight = 0;
-
-        for (fieldIndex in t79CB.outputFields) {
-            textElm = t79CB.outputFields[fieldIndex]['textField'].firstChild;
-            textElm.style.fontSize = '0.9em';
-            textElm.firstChild.nextSibling.style.width = '100%';
-            textElm.firstChild.nextSibling.style.display = 'block';
-            if (textElm.clientWidth > t79CB.colorInfoTextWidth) {
-                t79CB.colorInfoTextWidth = textElm.clientWidth;
-            }
-            if (textElm.clientHeight > t79CB.colorInfoTextHeight) {
-                t79CB.colorInfoTextHeight = textElm.clientHeight;
-            }
-        }
-    }
-
     constructOutputFieldsPart2();
 
     const alpha = [0.98, 0.92, 0.80, 0.56, 0.25];
