@@ -34,6 +34,9 @@ function initColorBlender() {
 }
 
 function setColor(e) {
+
+    const oldPosition = t79CB.controlersContainer.getBoundingClientRect().top;
+
     if (e.target.id == 'color-picker-1') {
         t79CB.inputColorText1.value = e.target.value;
     } else if (e.target.id == 'color-picker-2') {
@@ -51,6 +54,10 @@ function setColor(e) {
     }
 
     setColorShades();
+
+    const newPosition = t79CB.controlersContainer.getBoundingClientRect().top;
+
+    window.scrollBy(0,(newPosition - oldPosition));
 }
 
 function checkThatValueIsAColor(value) {
@@ -90,6 +97,8 @@ function checkThatValueIsAColor(value) {
 
 function stepSelector(button) {
 
+    const oldPosition = t79CB.controlersContainer.getBoundingClientRect().top;
+
     if (button != null && button.getAttribute('data-active') == 'true') {
         button.style.backgroundColor = '#fff5';
         window.setTimeout(function () {
@@ -119,9 +128,14 @@ function stepSelector(button) {
         t79CB.stepButtonPluss.setAttribute('data-active', 'true');
     }
 
+    const newPosition = t79CB.controlersContainer.getBoundingClientRect().top;
+
+    window.scrollBy(0,(newPosition - oldPosition));
 }
 
 function colorSpaceSelector(button) {
+
+    const oldPosition = t79CB.controlersContainer.getBoundingClientRect().top;
 
     if (button == null || button.id == 'color-space-button-rgb') {
         t79CB.colorSpace = 'RGB';
@@ -135,9 +149,16 @@ function colorSpaceSelector(button) {
 
     setColorShades();
 
+    const newPosition = t79CB.controlersContainer.getBoundingClientRect().top;
+
+    window.scrollBy(0,(newPosition - oldPosition));
+
 }
 
 function transparentSelector(button) {
+
+
+    const oldPosition = t79CB.controlersContainer.getBoundingClientRect().top;
 
     if (button == null || button.id == 'transparent-button-opaque') {
         t79CB.transparent = 'opaque';
@@ -160,6 +181,9 @@ function transparentSelector(button) {
 
     setupOutputFieldsTable(t79CB.outputFields.length);
 
+    const newPosition = t79CB.controlersContainer.getBoundingClientRect().top;
+
+    window.scrollBy(0,(newPosition - oldPosition));
 }
 
 function setupOutputFieldsTable(numberOfShades) {
