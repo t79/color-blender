@@ -38,7 +38,9 @@ function initColorBlender() {
 
 function setColor(e) {
 
+
     const oldPosition = t79CB.controlersContainer.getBoundingClientRect().top;
+
 
     if (e.target.id == 'color-picker-1') {
         t79CB.inputColorText1.value = e.target.value;
@@ -164,7 +166,6 @@ function colorSpaceSelector(button) {
 
 function transparentSelector(button) {
 
-
     const oldPosition = t79CB.controlersContainer.getBoundingClientRect().top;
 
     if (button == null || button.id == 'transparent-button-opaque') {
@@ -193,6 +194,8 @@ function transparentSelector(button) {
     window.scrollBy(0,(newPosition - oldPosition));
 }
 
+
+
 function setupOutputFieldsTable(numberOfShades) {
 
     localStorage.setItem('scrollpos', window.scrollY);
@@ -201,18 +204,15 @@ function setupOutputFieldsTable(numberOfShades) {
     t79CB.outputColorField.style.minHeight = '' + cHeightOutput;
     t79CB.outputColorField.innerHTML = '';
 
-
     const cHeight = t79CB.outputColorFieldTop.clientHeight;
     t79CB.outputColorFieldTop.style.minHeight = '0px'; //'' + cHeight + 'px';
     t79CB.outputColorFieldTop.innerHTML = '';
-
     t79CB.outputColorFieldTransparent.innerHTML = '';
+
     t79CB.outputFields = Array(numberOfShades).fill();
 
     for (fieldIndex in t79CB.outputFields) {
         let field = {};
-
-
 
         const svgContainer = document.createElement('div');
         svgContainer.classList.add('svg-container-main-view');
@@ -224,12 +224,10 @@ function setupOutputFieldsTable(numberOfShades) {
             field['svgContainerTopView'] = svgTopContainer;
             t79CB.outputColorFieldTop.appendChild(svgTopContainer);
         } else {
-
             const svgTransparentContainer = document.createElement('div');
             svgTransparentContainer.classList.add('svg-container-transparent-view');
             field['svgContainerTransparentView'] = svgTransparentContainer;
             t79CB.outputColorFieldTransparent.appendChild(svgTransparentContainer);
-
         }
 
         const textPartContainer = document.createElement('div');
@@ -239,6 +237,7 @@ function setupOutputFieldsTable(numberOfShades) {
         textPartContainer.appendChild(textField);
         field['textField'] = textField;
 
+
         const fieldContainer = document.createElement('div');
         fieldContainer.classList.add('color-container');
         fieldContainer.appendChild(svgContainer);
@@ -246,11 +245,11 @@ function setupOutputFieldsTable(numberOfShades) {
 
         t79CB.outputColorField.appendChild(fieldContainer);
         t79CB.outputFields[fieldIndex] = field;
-
-        
     }
+
     constructOutputFields()
 }
+
 
 function constructOutputFields() {
 
@@ -337,14 +336,11 @@ function constructOutputFields() {
 
             t79CB.outputFields[fieldIndex]['svgContainerTransparentView'] = transparents;
         }
-
     }
-
     setColorShades();
 }
 
 function setColorShades() {
-
 
 
     const color1 = w3color(t79CB.inputColorPicker1.value);
@@ -356,6 +352,7 @@ function setColorShades() {
     var step1;
     var step2;
     var step3;
+
 
     if (t79CB.colorSpace == 'RGB') {
 
@@ -401,6 +398,7 @@ function setColorShades() {
 
             } else if (t79CB.colorSpace == 'HSL') {
                 color3['h'] = csColor1.h + step1 * fieldIndex;
+
                 color3['s'] = csColor1.s + step2 * fieldIndex;
                 color3['l'] = csColor1.l + step3 * fieldIndex;
 
@@ -412,6 +410,8 @@ function setColorShades() {
         t79CB.outputFields[fieldIndex]['color'] = color;
 
         const colorText = document.createElement('div');
+
+
         const value1 = document.createElement('span');
         value1.innerHTML = color.toHexString();
         const value2 = document.createElement('span');
@@ -596,6 +596,7 @@ function getElements() {
     t79CB.transparentButtonOpaque = document.getElementById('transparent-button-opaque');
     t79CB.transparentButtonColor = document.getElementById('transparent-button-color');
     t79CB.transparentButtonBW = document.getElementById('transparent-button-bw');
+
 
 }
 
