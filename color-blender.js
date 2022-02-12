@@ -430,8 +430,9 @@ function setColorShades() {
         colorText.appendChild(value2);
         colorText.appendChild(value3);
         colorText.style.display = 'inline-block';
-        colorText.style.fontSize = '1em';
+        colorText.style.fontSize = '1.2em';
         colorText.style.width = '100%';
+        colorText.style.color = t79CB.outputFields[fieldIndex]['color'].isDark() ? 'white' : 'black';
 
         t79CB.outputFields[fieldIndex]['textField'].innerHTML = '';
         t79CB.outputFields[fieldIndex]['textField'].appendChild(colorText);
