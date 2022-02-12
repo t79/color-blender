@@ -489,31 +489,23 @@ function constructOutputFieldsPart2() {
 
     const outputDivWidth = t79CB.outputColorField.clientWidth;
 
-    const standarFieldHeight = t79CB.curentFontSize * 6;
-    const minStandardFieldHeight = t79CB.curentFontSize * 3.5;
-    const cutof = t79CB.curentFontSize * 0.5;
-
-    const fieldHeight = Math.max(interpolation(t79CB.outputFields.length, 3, standarFieldHeight, 20, minStandardFieldHeight), (t79CB.colorInfoTextHeight + t79CB.curentFontSize));
-    console.log('fieldHeight: ' + fieldHeight + '  ' + (t79CB.colorInfoTextHeight + t79CB.curentFontSize) + '  ' + interpolation(t79CB.outputFields.length, 3, standarFieldHeight, 20, minStandardFieldHeight));
-    const fieldWidth = outputDivWidth - (t79CB.colorInfoTextWidth + t79CB.curentFontSize * 2);
-
     for (fieldIndex in t79CB.outputFields) {
         const colorField = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
-        colorField.setAttribute('width', String(fieldWidth));
-        colorField.setAttribute('height', String(fieldHeight));
+        colorField.setAttribute('width', String(outputDivWidth))
+        colorField.setAttribute('height', '180');
 
-        const rectPath = 'M0 0 L0 ' + fieldHeight + ' L' + (fieldWidth - cutof) + ' ' + fieldHeight + ' L' + fieldWidth + ' 0 Z';
+        const rectPath = 'M0 0 L0 180 L' + (outputDivWidth - 20) + ' 180 L' + outputDivWidth + ' 0 Z';
         const colorPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         colorPath.classList.add('color-rect');
         colorPath.setAttributeNS(null, 'd', rectPath);
         colorPath.style.fill = '#ffffff';
         colorField.appendChild(colorPath);
 
-        t79CB.outputFields[fieldIndex]['svgContainerMainView'].style.minHeight = String(fieldHeight) + 'px';
+        t79CB.outputFields[fieldIndex]['svgContainerMainView'].style.minHeight = '80px';
         t79CB.outputFields[fieldIndex]['svgContainerMainView'].innerHTML = '';
         t79CB.outputFields[fieldIndex]['svgContainerMainView'].appendChild(colorField);
-        t79CB.outputFields[fieldIndex]['svgContainerMainView'].setAttribute('width', String(fieldWidth) + 'px');
-        t79CB.outputFields[fieldIndex]['svgContainerMainView'].style.height = String(fieldHeight) + 'px';
+        t79CB.outputFields[fieldIndex]['svgContainerMainView'].setAttribute('width', outputDivWidth + 'px');
+        t79CB.outputFields[fieldIndex]['svgContainerMainView'].style.height = '180px';
     }
 }
 
