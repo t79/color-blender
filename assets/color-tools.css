@@ -38,7 +38,7 @@ main {
 	justify-content: flex-start;
 	flex-flow: row wrap;
 	align-content: flex-start;
-    padding: 1em 1em 1em 2.5em;
+    padding: 1em 1em 4em 2.5em;
 }
 
 #page-header img {
@@ -61,6 +61,7 @@ span {
 #page-header span:first-child {
     margin-left: 0;
 }
+
 
 #page-header a {
     text-decoration: none;
@@ -111,8 +112,7 @@ span {
 
 
 #top-field {
-    min-height: 10em;
-    padding: 0 2.5em 0 2.5em;
+    padding: 0 2.5em 3em 2.5em;
 }
 
 
@@ -358,12 +358,13 @@ h2 {
 
 .control-container {
     width: 100%;
-    border: 0.15em solid black;
+    border: 0.15em solid #68737b;
+    color: #68737b;
 }
 
 .control-label{
     padding: 0.5em;
-    border-bottom: 0.15em solid black;
+    border-bottom: 0.15em solid #68737b;
     text-align: center;
     font-size: 0.9em;
     margin: 0;
@@ -379,20 +380,31 @@ h2 {
     font-weight: 700;
 }
 
-#step-selector div[data-active="false"], #color-space-selector div[data-selected="true"] {
+#transparent-selector div {
+    min-width: calc(100%/3);
+    font-weight: 700;
+}
+
+#step-selector div[data-active="false"], 
+#color-space-selector div[data-selected="true"],
+#transparent-selector div[data-selected="true"] {
     background-color: #e2e4e9;
     color: black;
     cursor: default;
 }
 
-#step-selector div[data-active="true"], #color-space-selector div[data-selected="false"] {
-    background-color: blue;
+#step-selector div[data-active="true"], 
+#color-space-selector div[data-selected="false"],
+#transparent-selector div[data-selected="false"]  {
+    background-color: #1e90ff;
     color: white;
     cursor: pointer;
 }
 
-#step-selector div:not(:last-child) {
-   border-right: 0.15em solid black;
+#step-selector div:not(:last-child),
+#color-space-selector div:not(:last-child),
+#transparent-selector div:not(:last-child) {
+   border-right: 0.15em solid #68737b;
 }
 
 
@@ -455,12 +467,12 @@ h2 {
     cursor: default;
 }
 
-#color-space-selector div:not(:last-child) {
+/* #color-space-selector div:not(:last-child) {
    border-right: none;
-}
+} */
 
 #transparent-selector div {
-    min-width: 4em;
+    width: 4em;
     height: 2.5em;
     margin: 0;
     padding: 0.3em;;
@@ -486,9 +498,9 @@ h2 {
     cursor: default;
 }
 
-#transparent-selector div:not(:last-child) {
+/* #transparent-selector div:not(:last-child) {
    border-right: none;
-}
+} */
 
 #column-two {
     display: flex;
