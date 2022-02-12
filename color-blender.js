@@ -368,9 +368,17 @@ function setColorShades() {
         csColor1 = color1.toHsl();
         csColor2 = color2.toHsl();
 
-        step1 = (csColor2.h - csColor1.h) / (t79CB.outputFields.length - 1);
-        step2 = (csColor2.s - csColor1.s) / (t79CB.outputFields.length - 1);
-        step3 = (csColor2.l - csColor1.l) / (t79CB.outputFields.length - 1);
+        value1 = csColor2.h - csColor1.h;
+        value2 = csColor2.s - csColor1.s;
+        value3 = csColor2.l - csColor1.l;
+
+        if (csColor2.h - csColor1.h > 180 || csColor2.h - csColor1.h < -180) {
+            value1 = 360 - (csColor1.h - csColor2.h);
+        }
+
+        step1 = (value1) / (t79CB.outputFields.length - 1);
+        step2 = (value2) / (t79CB.outputFields.length - 1);
+        step3 = (value3) / (t79CB.outputFields.length - 1);
     }
 
     t79CB.colorInfoTextWidth = 0;
@@ -397,8 +405,8 @@ function setColorShades() {
                 color = w3color(rgbColor);
 
             } else if (t79CB.colorSpace == 'HSL') {
-                color3['h'] = csColor1.h + step1 * fieldIndex;
 
+                color3['h'] = (csColor1.h + step1 * fieldIndex)%360;
                 color3['s'] = csColor1.s + step2 * fieldIndex;
                 color3['l'] = csColor1.l + step3 * fieldIndex;
 
