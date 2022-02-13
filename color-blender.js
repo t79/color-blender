@@ -28,6 +28,21 @@ var t79CB = {
 
 function initColorBlender() {
     getElements();
+
+    let url2 = new URL(document.location);
+    let params = new URLSearchParams(url2.search);
+
+    const paramsArray = String(params).split('&');
+
+    for (index in paramsArray) {
+        const singleParam = paramsArray[index].split('=');
+        if (singleParam[0] == 'first-color') {
+            t79CB.inputColorPicker1.value = "#" + singleParam[1];
+        } else if (singleParam[0] == 'second-color') {
+            t79CB.inputColorPicker2.value = "#" + singleParam[1];
+        }
+    }
+
     getCurrentFontSize();
     setEventListener();
     stepSelector(null);
