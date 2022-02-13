@@ -279,8 +279,6 @@ function constructOutputFields() {
     let fieldWidth = t79CB.outputColorField.clientWidth / t79CB.outputFields.length * 1.01;
     let fieldHeight = t79CB.curentFontSize * 15;
 
-    console.log('fieldwidth: ' + fieldWidth + ' textWidth: ' + t79CB.colorInfoTextWidth);
-
     if (t79CB.transparent == 'opaque') {
 
         for (fieldIndex in t79CB.outputFields) {
@@ -316,8 +314,6 @@ function constructOutputFields() {
 
         for (fieldIndex in t79CB.outputFields) {
             let transparents = Array(5).fill();
-
-            console.log('going to add 5 images');
 
             const transparentColumnContainer = document.createElement('div');
             transparentColumnContainer.classList.add('transparent-column-container');
@@ -491,10 +487,7 @@ function setColorShades() {
             for (transparentIndex in t79CB.outputFields[fieldIndex]['svgContainerTransparentView']) {
                 const rectMain = t79CB.outputFields[fieldIndex]['svgContainerTransparentView'][transparentIndex].querySelector('.color-rect');
 
-                console.log(t79CB.outputFields[fieldIndex]['color'].toRgbString());
-
                 const colorSplit1 = t79CB.outputFields[fieldIndex]['color'].toRgbString().split('(');
-                console.log(colorSplit1);
                 const colorSplit2 = colorSplit1[1].split(')');
                 const colorValues = colorSplit2[0].split(',');
                 const newColor = 'rgba(' + colorValues[0] + ',' + colorValues[1] + ',' + colorValues[2] + ',' + alpha[transparentIndex] + ')';
