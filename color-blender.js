@@ -60,6 +60,14 @@ function setColor(e) {
 
     setColorShades();
 
+    let colorValue = t79CB.color1.toHexString().split('#');
+    let colorValue2 = t79CB.color2.toHexString().split('#');
+
+    const url = new URL(window.location);
+    url.searchParams.set('first-color', colorValue[1]);
+    url.searchParams.set('secound-color', colorValue2[1]);
+    window.history.pushState({}, '', url);
+
     if (t79CB.pageInit) {
         const newPosition = t79CB.controlersContainer.getBoundingClientRect().top;
         window.scrollBy(0, (newPosition - oldPosition));
