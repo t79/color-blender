@@ -16,7 +16,7 @@
 
 <kbd>
 <span>
-<img src="assets/screenshots/color-blender-v-0-2-2.png?raw=truetransparent-label" alt="drawing" width="40%"/>
+<img src="assets/screenshots/color-blender-v-0-2.png?raw=truetransparent-label" alt="drawing" width="40%"/>
 <em>version 0.2</em>
 </span>
 </kbd>
