@@ -364,6 +364,12 @@ function setColorShades() {
         t79CB.titleElement.innerHTML = 'Color Mixer - ' + getColorName(t79CB.color1.toHsl().h) + ' ' + t79CB.color1.toHexString() + ' & ' + getColorName(t79CB.color2.toHsl().h) + ' ' + t79CB.color2.toHexString();
     }
 
+    const rotation1 = 'rotate(' + t79CB.color1.toHsl().h + ')';
+    t79CB.outputColorWheel1.setAttribute('transform', rotation1);
+    const rotation2 = 'rotate(' + t79CB.color2.toHsl().h + ')';
+    t79CB.outputColorWheel2.setAttribute('transform', rotation2);
+
+
     var csColor1;
     var csColor2;
 
@@ -550,6 +556,8 @@ function getElements() {
     t79CB.outputColorField = document.getElementById('output-colors');
     t79CB.outputColorFieldTop = document.getElementById('top-view');
     t79CB.outputColorFieldTransparent = document.getElementById('transparent-view');
+    t79CB.outputColorWheel1 = document.getElementById('colorwheel-color1');
+    t79CB.outputColorWheel2 = document.getElementById('colorwheel-color2');
     t79CB.inputColorText1 = document.getElementById('color-text-1');
     t79CB.inputColorPicker1 = document.getElementById('color-picker-1');
     t79CB.inputColorText2 = document.getElementById('color-text-2');
