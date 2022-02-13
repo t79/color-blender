@@ -392,7 +392,9 @@ function setColorShades() {
         value2 = csColor2.s - csColor1.s;
         value3 = csColor2.l - csColor1.l;
 
-        if (csColor2.h - csColor1.h > 180 || csColor2.h - csColor1.h < -180) {
+        if (csColor2.h - csColor1.h > 180) {
+            value1 = -1 * (360 - (csColor2.h - csColor1.h));
+        } else if (csColor2.h - csColor1.h < -180) {
             value1 = 360 - (csColor1.h - csColor2.h);
         }
 
