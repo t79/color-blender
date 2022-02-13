@@ -346,7 +346,7 @@ function setColorShades() {
     t79CB.color2 = w3color(t79CB.inputColorPicker2.value);
 
     if (t79CB.pageInit) {
-        t79CB.titleElement.innerHTML = 'Color Mixer - ' + getColorName(t79CB.color1.toHsl().h) + ' ' + t79CB.color1.toHexString() + ' & ' + getColorName(t79CB.color2.toHsl().h) + ' ' + t79CB.color2.toHexString() ;
+        t79CB.titleElement.innerHTML = 'Color Mixer - ' + getColorName(t79CB.color1.toHsl().h) + ' ' + t79CB.color1.toHexString() + ' & ' + getColorName(t79CB.color2.toHsl().h) + ' ' + t79CB.color2.toHexString();
     }
 
     var csColor1;
@@ -409,7 +409,7 @@ function setColorShades() {
 
             } else if (t79CB.colorSpace == 'HSL') {
 
-                color3['h'] = (csColor1.h + step1 * fieldIndex)%360;
+                color3['h'] = (csColor1.h + step1 * fieldIndex) % 360;
                 color3['s'] = csColor1.s + step2 * fieldIndex;
                 color3['l'] = csColor1.l + step3 * fieldIndex;
 
@@ -572,7 +572,7 @@ function getColorName(hue) {
     } else if (hue <= 40) {
         return 'Orange/Brown';
     } else if (hue <= 50) {
-        return 'Orange/Yellow'; 
+        return 'Orange/Yellow';
     } else if (hue <= 60) {
         return 'Yellow';
     } else if (hue <= 80) {
