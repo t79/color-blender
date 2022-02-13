@@ -334,8 +334,9 @@ function constructOutputFields() {
 
 function setColorShades() {
 
-    const color1 = w3color(t79CB.inputColorPicker1.value);
-    const color2 = w3color(t79CB.inputColorPicker2.value);
+    t79CB.color1 = w3color(t79CB.inputColorPicker1.value);
+    t79CB.color2 = w3color(t79CB.inputColorPicker2.value);
+
     if (t79CB.pageInit) {
         t79CB.titleElement.innerHTML = 'Color Mixer - ' + getColorName(t79CB.color1.toHsl().h) + ' ' + t79CB.color1.toHexString() + ' & ' + getColorName(t79CB.color2.toHsl().h) + ' ' + t79CB.color2.toHexString() ;
     }
@@ -350,8 +351,8 @@ function setColorShades() {
 
     if (t79CB.colorSpace == 'RGB') {
 
-        csColor1 = color1.toRgb();
-        csColor2 = color2.toRgb();
+        csColor1 = t79CB.color1.toRgb();
+        csColor2 = t79CB.color2.toRgb();
 
         step1 = (csColor2.r - csColor1.r) / (t79CB.outputFields.length - 1);
         step2 = (csColor2.g - csColor1.g) / (t79CB.outputFields.length - 1);
@@ -359,8 +360,8 @@ function setColorShades() {
 
     } else if (t79CB.colorSpace == 'HSL') {
 
-        csColor1 = color1.toHsl();
-        csColor2 = color2.toHsl();
+        csColor1 = t79CB.color1.toHsl();
+        csColor2 = t79CB.color2.toHsl();
 
         value1 = csColor2.h - csColor1.h;
         value2 = csColor2.s - csColor1.s;
@@ -383,9 +384,9 @@ function setColorShades() {
         var color;
 
         if (fieldIndex == 0) {
-            color = color1;
+            color = t79CB.color1;
         } else if (fieldIndex == t79CB.outputFields.length - 1) {
-            color = color2;
+            color = t79CB.color2;
         } else {
 
             const color3 = {};
