@@ -1,5 +1,3 @@
-# Color Tools - a small collection
+# Color Blender
 
-## Color Blender
-
-![Alt text](assets/screenshots/color-blender-v-0-1.png?raw=true)
+![Alt text](assets/screenshots/color-blender-v-0-1.png?raw=truetransparent-label)
