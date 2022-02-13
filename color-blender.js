@@ -336,6 +336,9 @@ function setColorShades() {
 
     const color1 = w3color(t79CB.inputColorPicker1.value);
     const color2 = w3color(t79CB.inputColorPicker2.value);
+    if (t79CB.pageInit) {
+        t79CB.titleElement.innerHTML = 'Color Mixer - ' + getColorName(t79CB.color1.toHsl().h) + ' ' + t79CB.color1.toHexString() + ' & ' + getColorName(t79CB.color2.toHsl().h) + ' ' + t79CB.color2.toHexString() ;
+    }
 
     var csColor1;
     var csColor2;
@@ -528,6 +531,7 @@ function getElements() {
     t79CB.inputColorText2 = document.getElementById('color-text-2');
     t79CB.inputColorPicker2 = document.getElementById('color-picker-2');
     t79CB.htmlElement = document.querySelector('html');
+    t79CB.titleElement = document.querySelector('title');
     t79CB.stepStatus = document.getElementById('step-status');
     t79CB.stepButtonMinus = document.getElementById('step-button-minus');
     t79CB.stepButtonPluss = document.getElementById('step-button-plus');
@@ -548,5 +552,42 @@ function interpolation(x, x1, y1, x2, y2) {
 function getCurrentFontSize() {
     var fontSizeString = window.getComputedStyle(t79CB.htmlElement, null).getPropertyValue('font-size');
     t79CB.curentFontSize = parseFloat(fontSizeString);
+}
+
+function getColorName(hue) {
+
+    if (hue >= 356 || hue <= 10) {
+        return 'Red';
+    } else if (hue <= 20) {
+        return 'Red/Orange';
+    } else if (hue <= 40) {
+        return 'Orange/Brown';
+    } else if (hue <= 50) {
+        return 'Orange/Yellow'; 
+    } else if (hue <= 60) {
+        return 'Yellow';
+    } else if (hue <= 80) {
+        return 'Yellow/Green';
+    } else if (hue <= 140) {
+        return 'Green';
+    } else if (hue <= 169) {
+        return 'Green/Cyan';
+    } else if (hue <= 200) {
+        return 'Cyan';
+    } else if (hue <= 220) {
+        return 'Cyan/Blue';
+    } else if (hue <= 240) {
+        return 'Blue';
+    } else if (hue <= 280) {
+        return 'Blue/Magenta';
+    } else if (hue <= 320) {
+        return 'Magenta';
+    } else if (hue <= 330) {
+        return 'Magenta/Pink';
+    } else if (hue <= 345) {
+        return 'Pink';
+    } else if (hue <= 355) {
+        return 'Pink/Red';
+    }
 }
 
