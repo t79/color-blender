@@ -65,7 +65,7 @@ function setColor(e) {
 
     const url = new URL(window.location);
     url.searchParams.set('first-color', colorValue[1]);
-    url.searchParams.set('secound-color', colorValue2[1]);
+    url.searchParams.set('second-color', colorValue2[1]);
     window.history.pushState({}, '', url);
 
     if (t79CB.pageInit) {
