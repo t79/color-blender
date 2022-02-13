@@ -1,9 +1,10 @@
 # Color Blender
 
 
-<span>
-<img src="assets/screenshots/color-blender-v-0-4.png?raw=truetransparent-label" alt="drawing" width="52%" style="border: 2px solid black;"/>
+<span><kbd>
+<img src="assets/screenshots/color-blender-v-0-4.png?raw=truetransparent-label" alt="drawing" width="52%"/>
 <em>version 0.4</em>
+</kbd>
 </span>
 
 <span>
